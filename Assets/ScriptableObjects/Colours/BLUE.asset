@@ -16,4 +16,5 @@ MonoBehaviour:
   MaskShape: {fileID: 8177471321811730583, guid: 87aaca0a643d54397ba969dab4fc8875, type: 3}
   TintColour: {r: 0.2761955, g: 0.44269618, b: 0.59748423, a: 1}
   InteractableObjects: []
-  InteractableEnemies: []
+  InteractableEnemies:
+  - {fileID: 11400000, guid: 9a11b3e0c03ccfb4797326772c768b4f, type: 2}

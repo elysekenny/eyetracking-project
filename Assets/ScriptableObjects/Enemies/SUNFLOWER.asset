@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b44897a6c4b492446bdb0e7c69df7a75, type: 3}
-  m_Name: ROSE
+  m_Name: SUNFLOWER
   m_EditorClassIdentifier: 
-  DisplayName: The Red Rose
+  DisplayName: Sinflower
   HudIcon: {fileID: 0}
-  WorldReference: {fileID: 3960920397721712598, guid: 1672ddba526c775419239a35dba827b3, type: 3}
-  SpriteColour: {r: 1, g: 0, b: 0, a: 1}
-  FullSprite: {fileID: 5614637178320563061, guid: b8f0e954b5b9ff847a8a33c484a55353, type: 3}
+  WorldReference: {fileID: 3960920397721712598, guid: c9b1228277e988042802e4181d6100a4, type: 3}
+  SpriteColour: {r: 1, g: 0.7971463, b: 0, a: 1}
+  FullSprite: {fileID: -256329436847572505, guid: bfda104ddb0c0ad43bfabb2a393b9373, type: 3}
