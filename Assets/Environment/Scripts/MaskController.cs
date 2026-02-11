@@ -1,19 +1,18 @@
 using UnityEngine;
 using Eyeware.BeamEyeTracker.Unity;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class MaskController : BeamEyeTrackerMonoBehaviour
 {
     public GameObject MaskReference;
     public GameObject ColourBackground;
-    
 
+
+    //PRIVATE ATTRIBUTES
     private NewColour CurrentMaskData;
-
-    void Start()
-    {
-        
-    }
+    private List<GameObject> MaskedObjects = new List<GameObject>();
 
     // map the position of the mask to the position of the eye tracker
     void Update()
@@ -35,5 +34,42 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         
         ColourBackground.GetComponent<SpriteRenderer>().color    = CurrentMaskData.TintColour;
         MaskReference.GetComponent<SpriteMask>().sprite          = CurrentMaskData.MaskShape;
+
+        // SET UP DISABLING/ ENABLING OBJECTS IN THE MASK
+        foreach(GameObject Object in MaskedObjects)
+        {
+            Object.GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
+            foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
+            {
+                if(enemy.WorldReference.name == Object.name)
+                {
+                    Object.GetComponent<SpriteRenderer>().color = enemy.SpriteColour;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(!CurrentMaskData){return;}
+        GameObject Object = collision.gameObject;
+        MaskedObjects.Add(Object);
+
+        foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
+        {
+            if(enemy.WorldReference.name == Object.name)
+            {
+                Object.GetComponent<SpriteRenderer>().color = enemy.SpriteColour;
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(!CurrentMaskData){return;}
+
+        GameObject Object = collision.gameObject;               
+        Object.GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
+        MaskedObjects.Remove(Object);
     }
 }

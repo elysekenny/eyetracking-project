@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class SceneController : MonoBehaviour
 {
 
-    public GameObject EnvironmentReference;
+    public GameObject MaskReference;
 
     public NewColour BlueData;
     public NewColour RedData;
@@ -26,7 +26,7 @@ public class SceneController : MonoBehaviour
         RedMask =  InputSystem.actions.FindAction("EquipRed");
         YellowMask =  InputSystem.actions.FindAction("EquipYellow");
 
-        _MASKCONTROLLER = EnvironmentReference.GetComponent<MaskController>();
+        _MASKCONTROLLER = MaskReference.GetComponent<MaskController>();
     }
 
     public void Update()

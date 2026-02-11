@@ -10,6 +10,7 @@ public class NewEnemy : ScriptableObject
 
     [Header("World Data")]
     public GameObject WorldReference;
+    public Color SpriteColour;
 
     [Header("Combat Data")]
     public Sprite FullSprite;
