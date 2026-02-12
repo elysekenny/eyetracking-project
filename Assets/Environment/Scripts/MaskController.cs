@@ -33,6 +33,7 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         CurrentMaskData = MaskData;
         
         ColourBackground.GetComponent<SpriteRenderer>().color    = CurrentMaskData.TintColour;
+        ColourBackground.GetComponent<SpriteRenderer>().sprite   = CurrentMaskData.BackgroundSprite;
         MaskReference.GetComponent<SpriteMask>().sprite          = CurrentMaskData.MaskShape;
 
         // SET UP DISABLING/ ENABLING OBJECTS IN THE MASK

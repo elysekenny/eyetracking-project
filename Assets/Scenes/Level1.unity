@@ -199,8 +199,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -5646893762144154270, guid: ca8164f023d59994b862a601f412689b, type: 3}
-  m_Color: {r: 0.40251565, g: 0.40251565, b: 0.40251565, a: 1}
+  m_Sprite: {fileID: 2862105666352672822, guid: 1f0e46f24f9cf35429d8d6bad6733ff3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -432,7 +432,7 @@ Camera:
     height: 1
   near clip plane: 100
   far clip plane: 1000
-  field of view: 153.2
+  field of view: 172
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -629,7 +629,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -5646893762144154270, guid: ca8164f023d59994b862a601f412689b, type: 3}
+  m_Sprite: {fileID: 2862105666352672822, guid: 1f0e46f24f9cf35429d8d6bad6733ff3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

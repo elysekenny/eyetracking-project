@@ -15,6 +15,7 @@ MonoBehaviour:
   DisplayName: Yellow Light
   MaskShape: {fileID: 8177471321811730583, guid: 87aaca0a643d54397ba969dab4fc8875, type: 3}
   TintColour: {r: 0.7484276, g: 0.6414851, b: 0.21887967, a: 1}
+  BackgroundSprite: {fileID: 5844358174798907415, guid: 97a40344dec86644aaa9b60588a00e37, type: 3}
   InteractableObjects: []
   InteractableEnemies:
   - {fileID: 11400000, guid: b164ea8cbaf1b184e8ee899138f6c20d, type: 2}

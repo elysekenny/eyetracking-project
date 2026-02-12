@@ -8,6 +8,7 @@ public class NewColour : ScriptableObject
     public String DisplayName;
     public Sprite MaskShape;
     public Color TintColour;
+    public Sprite BackgroundSprite;
 
     [Header("Interaction Data")]
     public NewInteractable[] InteractableObjects;

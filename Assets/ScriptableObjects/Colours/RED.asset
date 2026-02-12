@@ -15,6 +15,7 @@ MonoBehaviour:
   DisplayName: Red Light
   MaskShape: {fileID: 8177471321811730583, guid: 87aaca0a643d54397ba969dab4fc8875, type: 3}
   TintColour: {r: 0.6792453, g: 0.24563889, b: 0.24563889, a: 1}
+  BackgroundSprite: {fileID: 4177032925295977671, guid: d4c4cbd8c4706814db3370bba86841f4, type: 3}
   InteractableObjects: []
   InteractableEnemies:
   - {fileID: 11400000, guid: 8b3dd1ba02109934e93704d7b3cc71ae, type: 2}
