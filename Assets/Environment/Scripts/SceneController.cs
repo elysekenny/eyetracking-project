@@ -22,9 +22,9 @@ public class SceneController : MonoBehaviour
 
     public void Start()
     {
-        BlueMask =  InputSystem.actions.FindAction("EquipBlue");
-        RedMask =  InputSystem.actions.FindAction("EquipRed");
-        YellowMask =  InputSystem.actions.FindAction("EquipYellow");
+        BlueMask     =  InputSystem.actions.FindAction("EquipBlue");
+        RedMask      =  InputSystem.actions.FindAction("EquipRed");
+        YellowMask   =  InputSystem.actions.FindAction("EquipYellow");
 
         _MASKCONTROLLER = MaskReference.GetComponent<MaskController>();
     }
@@ -32,20 +32,11 @@ public class SceneController : MonoBehaviour
     public void Update()
     {
         // MASK CONTROLS
-        if(BlueMask.WasPressedThisFrame())
-        {
-            _MASKCONTROLLER.SetActiveMaskData(BlueData);
-        }
+        if(BlueMask.WasPressedThisFrame())      { _MASKCONTROLLER.SetActiveMaskData(BlueData);}
+        if(RedMask.WasPressedThisFrame())       { _MASKCONTROLLER.SetActiveMaskData(RedData);}
+        if(YellowMask.WasPressedThisFrame())    { _MASKCONTROLLER.SetActiveMaskData(YellowData);}
 
-        if(RedMask.WasPressedThisFrame())
-        {
-            _MASKCONTROLLER.SetActiveMaskData(RedData);
-        }
-
-        if(YellowMask.WasPressedThisFrame())
-        {
-            _MASKCONTROLLER.SetActiveMaskData(YellowData);
-        }
+        // CAMERA CONTROLS (mapped to eyetracking)
     }
 
 }

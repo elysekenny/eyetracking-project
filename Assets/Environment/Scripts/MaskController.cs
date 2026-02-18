@@ -17,15 +17,20 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
     // map the position of the mask to the position of the eye tracker
     void Update()
     {
+        MapMaskPosition();
+    }
+
+    private void MapMaskPosition()
+    {
+        // ignore if there is no eye tracking device connected
         if(betInputDevice == null){return;}
 
-        Vector2 gazeValue = betInputDevice.viewportGazePosition.ReadValue();
+        Vector2 gazeValue = betInputDevice.viewportGazePosition.ReadValue(); // i think this is a percentage of the screen represented between 0 and 1
         // Clamp gaze position to viewport bounds (0-1)
         gazeValue.x = Mathf.Clamp01(gazeValue.x);
         gazeValue.y = Mathf.Clamp01(gazeValue.y);
 
         MaskReference.transform.position = new Vector2(gazeValue.x * Screen.width, gazeValue.y * Screen.height);
-
     }
 
     public void SetActiveMaskData(NewColour MaskData)
