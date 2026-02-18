@@ -766,6 +766,7 @@ MonoBehaviour:
   MaskReference: {fileID: 1861443596}
   ColourBackground: {fileID: 834104286}
   MainCamera: {fileID: 519420028}
+  IN_DEBUG: 1
 --- !u!1 &1999190152
 GameObject:
   m_ObjectHideFlags: 0

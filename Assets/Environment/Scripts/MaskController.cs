@@ -1,6 +1,7 @@
 using UnityEngine;
 using Eyeware.BeamEyeTracker.Unity;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class MaskController : BeamEyeTrackerMonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
     public GameObject ColourBackground;
     public GameObject MainCamera;
 
+    public bool IN_DEBUG = false;
 
     //PRIVATE ATTRIBUTES
     private NewColour CurrentMaskData;
@@ -21,10 +23,11 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
     // map the position of the mask to the position of the eye tracker
     void Update()
     {
-        MapMaskPosition();
+        if(IN_DEBUG){MapMaskPosition_Mouse();}    
+        else{MapMaskPosition_Eye();}
     }
 
-    private void MapMaskPosition()
+    private void MapMaskPosition_Eye()
     {
         // ignore if there is no eye tracking device connected
         if(betInputDevice == null){return;}
@@ -38,7 +41,20 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         Vector2 FullScreenPosition   = new Vector2(gazeValue.x *  Screen.width, gazeValue.y * Screen.height);
         Vector2 ClampToCameraView    = Camera.main.WorldToViewportPoint(FullScreenPosition);
         ClampToCameraView.x          = Mathf.Clamp01(ClampToCameraView.x);
-        ClampToCameraView.x          = Mathf.Clamp01(ClampToCameraView.x);
+        ClampToCameraView.y          = Mathf.Clamp01(ClampToCameraView.y);
+
+        MaskReference.transform.position = new Vector3(Camera.main.ViewportToWorldPoint(ClampToCameraView).x, Camera.main.ViewportToWorldPoint(ClampToCameraView).y, 0);
+    }
+
+    //DEBUG FOR MY SANITY
+    private void MapMaskPosition_Mouse()
+    {
+        float MouseX = Mouse.current.position.ReadValue().x;
+        float MouseY = Mouse.current.position.ReadValue().y;
+
+        Vector2 ClampToCameraView = Camera.main.WorldToViewportPoint(new Vector2(MouseX, MouseY));
+        ClampToCameraView.x       = Mathf.Clamp01(ClampToCameraView.x);
+        ClampToCameraView.y       = Mathf.Clamp01(ClampToCameraView.y);
 
         MaskReference.transform.position = new Vector3(Camera.main.ViewportToWorldPoint(ClampToCameraView).x, Camera.main.ViewportToWorldPoint(ClampToCameraView).y, 0);
     }

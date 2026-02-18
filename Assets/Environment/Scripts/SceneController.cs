@@ -70,7 +70,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         if(CameraSpace.y <= 0){yMove = -1;}
         if(CameraSpace.y >= 1){yMove = 1;}
 
-        Debug.Log("// X: " + CameraSpace.x + "// Y: " + CameraSpace.y);
+        // Debug.Log("// X: " + CameraSpace.x + "// Y: " + CameraSpace.y);
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x + xMove, Camera.main.transform.position.y + yMove, Camera.main.transform.position.z);
     }
 
