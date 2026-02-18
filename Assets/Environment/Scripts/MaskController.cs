@@ -1,7 +1,5 @@
 using UnityEngine;
 using Eyeware.BeamEyeTracker.Unity;
-using UnityEngine.UI;
-using Unity.VisualScripting;
 using System.Collections.Generic;
 
 public class MaskController : BeamEyeTrackerMonoBehaviour
