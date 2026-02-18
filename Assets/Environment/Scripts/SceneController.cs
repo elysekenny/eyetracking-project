@@ -5,12 +5,14 @@ public class SceneController : MonoBehaviour
 {
 
     public GameObject MaskReference;
+    public GameObject CameraReference;
 
     public NewColour BlueData;
     public NewColour RedData;
     public NewColour YellowData;
 
     private MaskController _MASKCONTROLLER;
+    private Camera _CAMERA;
 
 
     // READS THE PLAYER INPUTS
@@ -19,13 +21,15 @@ public class SceneController : MonoBehaviour
     InputAction YellowMask;
 
 
-
     public void Start()
     {
+        // USER INPUTS
         BlueMask     =  InputSystem.actions.FindAction("EquipBlue");
         RedMask      =  InputSystem.actions.FindAction("EquipRed");
         YellowMask   =  InputSystem.actions.FindAction("EquipYellow");
 
+        // REFERENCES
+        _CAMERA         = CameraReference.GetComponent<Camera>();
         _MASKCONTROLLER = MaskReference.GetComponent<MaskController>();
     }
 
@@ -37,6 +41,7 @@ public class SceneController : MonoBehaviour
         if(YellowMask.WasPressedThisFrame())    { _MASKCONTROLLER.SetActiveMaskData(YellowData);}
 
         // CAMERA CONTROLS (mapped to eyetracking)
+
     }
 
 }
