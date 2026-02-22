@@ -33,17 +33,17 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         if(betInputDevice == null){return;}
 
         Vector2 gazeValue = betInputDevice.viewportGazePosition.ReadValue();
-        // Clamp gaze position to viewport bounds (0-1)
         gazeValue.x = Mathf.Clamp01(gazeValue.x);
         gazeValue.y = Mathf.Clamp01(gazeValue.y);
 
         // TRANSLATE THE SCREEN POSITION TO WITHIN THE BOUNDS OF THE CAMERA VIEWPORT
         Vector2 FullScreenPosition   = new Vector2(gazeValue.x *  Screen.width, gazeValue.y * Screen.height);
-        Vector2 ClampToCameraView    = Camera.main.WorldToViewportPoint(FullScreenPosition);
-        ClampToCameraView.x          = Mathf.Clamp01(ClampToCameraView.x);
-        ClampToCameraView.y          = Mathf.Clamp01(ClampToCameraView.y);
+        Vector2 WorldPos             = Camera.main.ScreenToWorldPoint(FullScreenPosition);
 
-        MaskReference.transform.position = new Vector3(Camera.main.ViewportToWorldPoint(ClampToCameraView).x, Camera.main.ViewportToWorldPoint(ClampToCameraView).y, 0);
+        // Vector2 ClampToCameraView    = Camera.main.ScreenToViewportPoint(FullScreenPosition);
+        MaskReference.transform.position = new Vector3(WorldPos.x, WorldPos.y, 0);
+
+        // MaskReference.transform.position = new Vector3(ClampToCameraView.x * Camera.main.scaledPixelWidth, ClampToCameraView.y * Camera.main.scaledPixelHeight,0);
     }
 
     //DEBUG FOR MY SANITY
@@ -52,11 +52,8 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         float MouseX = Mouse.current.position.ReadValue().x;
         float MouseY = Mouse.current.position.ReadValue().y;
 
-        Vector2 ClampToCameraView = Camera.main.WorldToViewportPoint(new Vector2(MouseX, MouseY));
-        ClampToCameraView.x       = Mathf.Clamp01(ClampToCameraView.x);
-        ClampToCameraView.y       = Mathf.Clamp01(ClampToCameraView.y);
-
-        MaskReference.transform.position = new Vector3(Camera.main.ViewportToWorldPoint(ClampToCameraView).x, Camera.main.ViewportToWorldPoint(ClampToCameraView).y, 0);
+        Vector2 ClampToCameraView = Camera.main.ScreenToWorldPoint(new Vector2(MouseX, MouseY));
+        MaskReference.transform.position = new Vector3(ClampToCameraView.x, ClampToCameraView.y, 0);
     }
 
     public void SetActiveMaskData(NewColour MaskData)
