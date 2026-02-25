@@ -2,13 +2,13 @@ using UnityEngine;
 using Eyeware.BeamEyeTracker.Unity;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using TMPro;
-
 public class MaskController : BeamEyeTrackerMonoBehaviour
 {
     public GameObject MaskReference;
     public GameObject ColourBackground;
-    public GameObject OnScreenUI;
+    public GameObject LocationShadow;
 
     public bool IN_DEBUG = false;
 
@@ -58,7 +58,7 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
     private void UpdateUINewMask()
     {
         // Set the colour of features to the colour of the mask
-        TextMeshPro ColourBacking = OnScreenUI.transform.Find("EnvironmentData").gameObject.transform.Find("LocationShadow").gameObject.GetComponent<TextMeshPro>();
+        TextMeshProUGUI ColourBacking = LocationShadow.GetComponent<TextMeshProUGUI>();
         ColourBacking.color = CurrentMaskData.TintColour;
     }
 

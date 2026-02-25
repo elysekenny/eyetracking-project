@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 606285bf776675041b2974b3a8d4461f
+guid: c04aac7eda4081647bed31b44d480734
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3218575419753035041
-    second: xbox_button_a_outline_0
+      213: -6016429036545687985
+    second: Sunflower Icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: xbox_button_a_outline_0
+      name: Sunflower Icon_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 7
-        width: 50
-        height: 50
+        x: 13
+        y: 18
+        width: 1279
+        height: 1284
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 125fe21aa4daaac20800000000000000
-      internalID: 3218575419753035041
+      spriteID: f4e395ceaa9518ca0800000000000000
+      internalID: -6016429036545687985
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      xbox_button_a_outline_0: 3218575419753035041
+      Sunflower Icon_0: -6016429036545687985
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
