@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using Eyeware.BeamEyeTracker.Unity;
 using Eyeware.BeamEyeTracker;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class SceneController : BeamEyeTrackerMonoBehaviour
 {
@@ -44,8 +45,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         if(Interact.WasPressedThisFrame())      { _MASKCONTROLLER.TryInteractWith();}
 
         // CAMERA CONTROLS (mapped to eyetracking)
-        MapGazeDirection();
-
+        if(SceneManager.GetActiveScene().name != "Combat"){MapGazeDirection();}
     }
 
     private void MapHeadMovement()

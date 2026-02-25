@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class MaskController : BeamEyeTrackerMonoBehaviour
 {
     public GameObject MaskReference;
@@ -104,8 +105,8 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
             {
                 if(enemy.WorldReference.name == Object.name)
                 {
-                    Debug.Log("INTERACT WITH " + Object.name);
-                     // pass the enemy data into the combat tbh
+                    // todo pass the enemy into the combat scene
+                    SceneManager.LoadScene("Combat");
                 }
             }
         }
