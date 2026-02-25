@@ -9,6 +9,7 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
     public GameObject MaskReference;
     public GameObject ColourBackground;
     public GameObject LocationShadow;
+    public GameObject InteractPrompt;
 
     public bool IN_DEBUG = false;
 
@@ -74,17 +75,40 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         foreach(GameObject Object in MaskedObjects)
         {
             Object.GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
+
+            // hide the interact prompt
+            InteractPrompt.gameObject.SetActive(false);
+
             foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
             {
                 if(enemy.WorldReference.name == Object.name)
                 {
                     Object.GetComponent<SpriteRenderer>().color = enemy.SpriteColour;
+
+                    //show and position the interact prompt
+                    InteractPrompt.gameObject.SetActive(true);
                 }
             }
         }
 
         // Update any ui changes based on the colour mask changing
         UpdateUINewMask();
+    }
+
+    public void TryInteractWith()
+    {
+        // Check if there is an object in the mask
+        foreach(GameObject Object in MaskedObjects)
+        {
+            foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
+            {
+                if(enemy.WorldReference.name == Object.name)
+                {
+                    Debug.Log("INTERACT WITH " + Object.name);
+                     // pass the enemy data into the combat tbh
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -98,6 +122,7 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
             if(enemy.WorldReference.name == Object.name)
             {
                 Object.GetComponent<SpriteRenderer>().color = enemy.SpriteColour;
+                InteractPrompt.gameObject.SetActive(true);
             }
         }
     }
@@ -109,5 +134,6 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         GameObject Object = collision.gameObject;               
         Object.GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
         MaskedObjects.Remove(Object);
+        InteractPrompt.gameObject.SetActive(false);
     }
 }

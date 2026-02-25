@@ -20,6 +20,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
     InputAction BlueMask;
     InputAction RedMask;
     InputAction YellowMask;
+    InputAction Interact;
 
 
     public void Start()
@@ -28,6 +29,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         BlueMask     =  InputSystem.actions.FindAction("EquipBlue");
         RedMask      =  InputSystem.actions.FindAction("EquipRed");
         YellowMask   =  InputSystem.actions.FindAction("EquipYellow");
+        Interact     =  InputSystem.actions.FindAction("Interact");
 
         // REFERENCES
         _MASKCONTROLLER = MaskReference.GetComponent<MaskController>();
@@ -39,6 +41,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         if(BlueMask.WasPressedThisFrame())      { _MASKCONTROLLER.SetActiveMaskData(BlueData);}
         if(RedMask.WasPressedThisFrame())       { _MASKCONTROLLER.SetActiveMaskData(RedData);}
         if(YellowMask.WasPressedThisFrame())    { _MASKCONTROLLER.SetActiveMaskData(YellowData);}
+        if(Interact.WasPressedThisFrame())      { _MASKCONTROLLER.TryInteractWith();}
 
         // CAMERA CONTROLS (mapped to eyetracking)
         MapGazeDirection();
@@ -71,6 +74,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         if(CameraSpace.y >= 1){yMove = 1;}
 
         // Debug.Log("// X: " + CameraSpace.x + "// Y: " + CameraSpace.y);
+        // TODO: Smmoth camera movement as oppossed to setting the position (lerp)
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x + xMove, Camera.main.transform.position.y + yMove, Camera.main.transform.position.z);
     }
 
