@@ -2,12 +2,13 @@ using UnityEngine;
 using Eyeware.BeamEyeTracker.Unity;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class MaskController : BeamEyeTrackerMonoBehaviour
 {
     public GameObject MaskReference;
     public GameObject ColourBackground;
-    public GameObject MainCamera;
+    public GameObject OnScreenUI;
 
     public bool IN_DEBUG = false;
 
@@ -40,10 +41,8 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         Vector2 FullScreenPosition   = new Vector2(gazeValue.x *  Screen.width, gazeValue.y * Screen.height);
         Vector2 WorldPos             = Camera.main.ScreenToWorldPoint(FullScreenPosition);
 
-        // Vector2 ClampToCameraView    = Camera.main.ScreenToViewportPoint(FullScreenPosition);
+          // TODO: Smmoth mask position as oppossed to setting the position (lerp)
         MaskReference.transform.position = new Vector3(WorldPos.x, WorldPos.y, 0);
-
-        // MaskReference.transform.position = new Vector3(ClampToCameraView.x * Camera.main.scaledPixelWidth, ClampToCameraView.y * Camera.main.scaledPixelHeight,0);
     }
 
     //DEBUG FOR MY SANITY
@@ -54,6 +53,13 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
 
         Vector2 ClampToCameraView = Camera.main.ScreenToWorldPoint(new Vector2(MouseX, MouseY));
         MaskReference.transform.position = new Vector3(ClampToCameraView.x, ClampToCameraView.y, 0);
+    }
+
+    private void UpdateUINewMask()
+    {
+        // Set the colour of features to the colour of the mask
+        TextMeshPro ColourBacking = OnScreenUI.transform.Find("EnvironmentData").gameObject.transform.Find("LocationShadow").gameObject.GetComponent<TextMeshPro>();
+        ColourBacking.color = CurrentMaskData.TintColour;
     }
 
     public void SetActiveMaskData(NewColour MaskData)
@@ -76,6 +82,9 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
                 }
             }
         }
+
+        // Update any ui changes based on the colour mask changing
+        UpdateUINewMask();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
