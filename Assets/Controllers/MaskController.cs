@@ -5,22 +5,26 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 public class MaskController : BeamEyeTrackerMonoBehaviour
 {
     public GameObject MaskReference;
     public GameObject ColourBackground;
     public GameObject LocationShadow;
     public GameObject InteractPrompt;
+    public GameObject EnemyData;
 
     public bool IN_DEBUG = false;
 
     //PRIVATE ATTRIBUTES
     private NewColour CurrentMaskData;
     private List<GameObject> MaskedObjects = new List<GameObject>();
+    private LoadEnemy EnemyDataLoader;
 
     void Start()
     {
-        
+        EnemyDataLoader =  EnemyData.GetComponent<LoadEnemy>();
     }
 
     // map the position of the mask to the position of the eye tracker
@@ -106,6 +110,7 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
                 if(enemy.WorldReference.name == Object.name)
                 {
                     // todo pass the enemy into the combat scene
+                    EnemyDataLoader.EnemyToLoad = enemy;
                     SceneManager.LoadScene("Combat");
                 }
             }
