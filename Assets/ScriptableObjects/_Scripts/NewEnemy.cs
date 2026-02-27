@@ -14,6 +14,7 @@ public class NewEnemy : ScriptableObject
 
     [Header("Combat Data")]
     public Sprite FullSprite;
+    public Vector3 OverrideSpriteScale;
 
     // TODO: flesh out a weakpoint system using the mask mapping
 }

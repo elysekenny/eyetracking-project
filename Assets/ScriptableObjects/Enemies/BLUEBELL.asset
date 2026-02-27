@@ -17,3 +17,4 @@ MonoBehaviour:
   WorldReference: {fileID: 3960920397721712598, guid: bd8fecb19eb88a1468dbf3a8ed393fa5, type: 3}
   SpriteColour: {r: 0, g: 0.7838819, b: 1, a: 1}
   FullSprite: {fileID: -8994018455595559979, guid: 10fffe6d1a3d74e459ac4a0502436037, type: 3}
+  OverrideSpriteScale: {x: 0.5, y: 0.5, z: 0.5}
