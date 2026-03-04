@@ -15,6 +15,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
     public NewColour YellowData;
 
     private MaskController _MASKCONTROLLER;
+    private Vector3 CameraVelocity = new Vector3(0, 0, 2);
 
 
     // READS THE PLAYER INPUTS
@@ -75,7 +76,8 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
 
         // Debug.Log("// X: " + CameraSpace.x + "// Y: " + CameraSpace.y);
         // TODO: Smmoth camera movement as oppossed to setting the position (lerp)
-        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x + xMove, Camera.main.transform.position.y + yMove, Camera.main.transform.position.z);
+        Vector3 NewCameraPos =  new Vector3(Camera.main.transform.position.x + xMove, Camera.main.transform.position.y + yMove, Camera.main.transform.position.z);
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, NewCameraPos, 0.5f);
     }
 
 }

@@ -47,8 +47,8 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         Vector2 FullScreenPosition   = new Vector2(gazeValue.x *  Screen.width, gazeValue.y * Screen.height);
         Vector2 WorldPos             = Camera.main.ScreenToWorldPoint(FullScreenPosition);
 
-          // TODO: Smmoth mask position as oppossed to setting the position (lerp)
-        MaskReference.transform.position = new Vector3(WorldPos.x, WorldPos.y, 0);
+        Vector3 NewPos = new Vector3(WorldPos.x, WorldPos.y, 0);
+        MaskReference.transform.position = Vector3.Lerp(MaskReference.transform.position, NewPos, 0.5f);
     }
 
     //DEBUG FOR MY SANITY
@@ -58,7 +58,8 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         float MouseY = Mouse.current.position.ReadValue().y;
 
         Vector2 ClampToCameraView = Camera.main.ScreenToWorldPoint(new Vector2(MouseX, MouseY));
-        MaskReference.transform.position = new Vector3(ClampToCameraView.x, ClampToCameraView.y, 0);
+        Vector3 NewPos = new Vector3(ClampToCameraView.x, ClampToCameraView.y, 0);
+        MaskReference.transform.position = Vector3.Lerp(MaskReference.transform.position, NewPos, 0.5f);
     }
 
     private void UpdateUINewMask()
