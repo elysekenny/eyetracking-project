@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
  */
 
-public class CombatController :  BeamEyeTrackerMonoBehaviour
+public class TurnController :  BeamEyeTrackerMonoBehaviour
 {
     public GameObject CombatUI;
     private GameObject EnemyLoaded;

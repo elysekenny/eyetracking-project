@@ -211,7 +211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &69930812
 RectTransform:
   m_ObjectHideFlags: 0
@@ -359,6 +359,7 @@ GameObject:
   - component: {fileID: 112565981}
   - component: {fileID: 112565984}
   - component: {fileID: 112565983}
+  - component: {fileID: 112565985}
   m_Layer: 6
   m_Name: Mask
   m_TagString: Untagged
@@ -472,6 +473,24 @@ SpriteMask:
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &112565985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112565980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe8d8d6640bba54b9742fef0b9d91f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaskReference: {fileID: 0}
+  ColourBackground: {fileID: 0}
+  LocationShadow: {fileID: 0}
+  InteractPrompt: {fileID: 0}
+  EnemyData: {fileID: 0}
+  IN_DEBUG: 0
 --- !u!1 &170722376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,7 +1445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &645863408
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3554,8 +3573,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1573216478}
-  - component: {fileID: 1573216477}
   - component: {fileID: 1573216479}
+  - component: {fileID: 1573216480}
   - component: {fileID: 1573216476}
   m_Layer: 0
   m_Name: SceneManager
@@ -3577,22 +3596,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startBeamEyeTrackerOnStart: 1
---- !u!114 &1573216477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1573216475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ec2c95a28966514a935466ca8db96dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaskReference: {fileID: 112565980}
-  BlueData: {fileID: 11400000, guid: 07e7f7abb260d284e992e2c2e9a9c170, type: 2}
-  RedData: {fileID: 11400000, guid: 27b951e797cf34a4aabda926fd073105, type: 2}
-  YellowData: {fileID: 11400000, guid: bf2223bd51e48f543bd4fd367436ae92, type: 2}
 --- !u!4 &1573216478
 Transform:
   m_ObjectHideFlags: 0
@@ -3621,6 +3624,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CombatUI: {fileID: 544337784}
+--- !u!114 &1573216480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573216475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a8cea7bd1b41f48b9d05e5fbada672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaskReference: {fileID: 0}
+  BlueData: {fileID: 0}
+  RedData: {fileID: 0}
+  YellowData: {fileID: 0}
 --- !u!1 &1587513804
 GameObject:
   m_ObjectHideFlags: 0
