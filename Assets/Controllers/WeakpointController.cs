@@ -10,21 +10,14 @@ using Unity.VisualScripting;
 public class WeakpointController : BeamEyeTrackerMonoBehaviour
 {
     public GameObject MaskReference;
-    public GameObject ColourBackground;
-    public GameObject LocationShadow;
-    public GameObject InteractPrompt;
-    public GameObject EnemyData;
-
     public bool IN_DEBUG = false;
 
     //PRIVATE ATTRIBUTES
     private NewColour CurrentMaskData;
-    private List<GameObject> MaskedObjects = new List<GameObject>();
-    private LoadEnemy EnemyDataLoader;
 
     void Start()
     {
-        EnemyDataLoader =  EnemyData.GetComponent<LoadEnemy>();
+        
     }
 
     // map the position of the mask to the position of the eye tracker
@@ -65,73 +58,24 @@ public class WeakpointController : BeamEyeTrackerMonoBehaviour
     private void UpdateUINewMask()
     {
         // Set the colour of features to the colour of the mask
-        TextMeshProUGUI ColourBacking = LocationShadow.GetComponent<TextMeshProUGUI>();
-        ColourBacking.color = CurrentMaskData.TintColour;
+     
     }
 
     public void SetActiveMaskData(NewColour MaskData)
     {
         CurrentMaskData = MaskData;
         
-        ColourBackground.GetComponent<SpriteRenderer>().color    = CurrentMaskData.TintColour;
-        ColourBackground.GetComponent<SpriteRenderer>().sprite   = CurrentMaskData.BackgroundSprite;
-        MaskReference.GetComponent<SpriteMask>().sprite          = CurrentMaskData.MaskShape;
-
-        // SET UP DISABLING/ ENABLING OBJECTS IN THE MASK
-        foreach(GameObject Object in MaskedObjects)
-        {
-            Object.GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
-
-            // hide the interact prompt
-            InteractPrompt.gameObject.SetActive(false);
-
-            foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
-            {
-                if(enemy.WorldReference.name == Object.name)
-                {
-                    Object.GetComponent<SpriteRenderer>().color = enemy.SpriteColour;
-
-                    //show and position the interact prompt
-                    InteractPrompt.gameObject.SetActive(true);
-                }
-            }
-        }
-
+        //SET THE COLOUR AND LOAD THE MASK DATA
         // Update any ui changes based on the colour mask changing
         UpdateUINewMask();
-    }
-
-    public void TryInteractWith()
-    {
-        // Check if there is an object in the mask
-        foreach(GameObject Object in MaskedObjects)
-        {
-            foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
-            {
-                if(enemy.WorldReference.name == Object.name)
-                {
-                    // todo pass the enemy into the combat scene
-                    EnemyDataLoader.EnemyToLoad = enemy;
-                    SceneManager.LoadScene("Combat");
-                }
-            }
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(!CurrentMaskData){return;}
         GameObject Object = collision.gameObject;
-        MaskedObjects.Add(Object);
-
-        foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
-        {
-            if(enemy.WorldReference.name == Object.name)
-            {
-                Object.GetComponent<SpriteRenderer>().color = enemy.SpriteColour;
-                InteractPrompt.gameObject.SetActive(true);
-            }
-        }
+       
+       // check if the weakpoint is hovered, if it is then enable the special combat action
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -139,8 +83,7 @@ public class WeakpointController : BeamEyeTrackerMonoBehaviour
         if(!CurrentMaskData){return;}
 
         GameObject Object = collision.gameObject;               
-        Object.GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
-        MaskedObjects.Remove(Object);
-        InteractPrompt.gameObject.SetActive(false);
+       
+       // disable the weakpoint option
     }
 }

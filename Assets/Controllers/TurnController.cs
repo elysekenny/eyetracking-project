@@ -2,6 +2,7 @@ using UnityEngine;
 using Eyeware.BeamEyeTracker.Unity;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 /*
 
@@ -19,22 +20,30 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private GameObject PlayerHealthBarTween;
     private GameObject EnemyHealthBar;
     private GameObject EnemyHealthBarTween;
+    private NewEnemy CurrentEnemyData;
 
     // Active player data
-    private float DefMod = 1.0f; // multiply the enemy's attack by this value
-    private float AtkMod = 1.0f; // multiply by the players attack (when selecting special this will be 2.0f)
-    private float BaseAttack = 10.0f;
-    private float AttackVariance = 2.0f; // 8-12 dmg
+    private float DefMod             = 1.0f; // multiply the enemy's attack by this value
+    private float AtkMod             = 1.0f; // multiply by the players attack (when selecting special this will be 2.0f)
+    private float BaseAttack         = 10.0f;
+    private float AttackVariance     = 2.0f; // 8-12 dmg
+
+    // TIMER STUFF
+    private float TimeRemaining          = 0.0f; // this will be specifc to the enemy
+    private float TimerScaleIncrement    = 0.0f;
+    private bool InTurn                  = false;
 
     public void Start()
     {
         // Get the enemy loaded
-        EnemyLoaded = GameObject.Find("EnemyData");
-        EnemyLoadScript = EnemyLoaded.GetComponent<LoadEnemy>();
-        Debug.Log("Starting combat with " + EnemyLoadScript.EnemyToLoad.DisplayName);
+        EnemyLoaded          = GameObject.Find("EnemyData");
+        EnemyLoadScript      = EnemyLoaded.GetComponent<LoadEnemy>();
+        CurrentEnemyData     = EnemyLoadScript.EnemyToLoad;
+
+        Debug.Log("Starting combat with " + CurrentEnemyData.DisplayName);
 
         SetupUIAttributes(); // set all the references to the ui attributes requried
-        InitialiseCombatUI(EnemyLoadScript.EnemyToLoad);
+        InitialiseCombatUI();
 
         // INTRO CUTSCENE
 
@@ -46,26 +55,35 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     {
         // Round timer visual thread
         // Health bar decrement animation
+        if(TimeRemaining <= 0f && InTurn)
+        {
+            EndTurn();
+        }
+        else if(InTurn)
+        {
+            TimeRemaining -= Time.deltaTime;
+            TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - TimerScaleIncrement, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
+        }
     }
 
-    private void InitialiseCombatUI(NewEnemy EnemyLoaded)
+    private void InitialiseCombatUI()
     {
         // ENEMY NAME
         TextMeshProUGUI DisplayName          = CombatUI.gameObject.transform.Find("Heading").gameObject.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI DisplayName_Shadow   = CombatUI.gameObject.transform.Find("Shadow").gameObject.GetComponent<TextMeshProUGUI>();
 
-        DisplayName.text         = EnemyLoaded.DisplayName;
-        DisplayName_Shadow.text  = EnemyLoaded.DisplayName;
-        DisplayName.color        = EnemyLoaded.SpriteColour;
+        DisplayName.text         = CurrentEnemyData.DisplayName;
+        DisplayName_Shadow.text  = CurrentEnemyData.DisplayName;
+        DisplayName.color        = CurrentEnemyData.SpriteColour;
 
         // ENEMY ICON
         Image EnemySprite            = CombatUI.gameObject.transform.Find("EnemySprite").gameObject.GetComponent<Image>();
         Image EnemySprite_Shadow     = CombatUI.gameObject.transform.Find("EnemyShadow").gameObject.GetComponent<Image>();
         
-        EnemySprite.sprite                        = EnemyLoaded.FullSprite;
-        EnemySprite_Shadow.sprite                 = EnemyLoaded.FullSprite;
-        EnemySprite.transform.localScale          = EnemyLoaded.OverrideSpriteScale;
-        EnemySprite_Shadow.transform.localScale   = EnemyLoaded.OverrideSpriteScale;
+        EnemySprite.sprite                        = CurrentEnemyData.FullSprite;
+        EnemySprite_Shadow.sprite                 = CurrentEnemyData.FullSprite;
+        EnemySprite.transform.localScale          = CurrentEnemyData.OverrideSpriteScale;
+        EnemySprite_Shadow.transform.localScale   = CurrentEnemyData.OverrideSpriteScale;
     }
 
     private void SetupUIAttributes()
@@ -94,10 +112,10 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         // lerp the values of the health anim to the new y and the new health percent
     }
-
     private void StartCombat()
     {
         // run first turn
+        PlayerTurn();
     }
 
     private void PlayerTurn()
@@ -106,11 +124,20 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         DefMod = 1.0f;
         AtkMod = 1.0f;
 
+        //get the timer increment scale
+        TimerScaleIncrement = Time.deltaTime / CurrentEnemyData.TurnDuration; // this is WRONG
+
         // start the round timer
+        InTurn           = true;
+        TimeRemaining    = CurrentEnemyData.TurnDuration;
     }
 
     private void EndTurn()
     {
         // this handles when the turn timer runs out. will update the dialogue box as follows and have a second grace period before the next round starts
+        Debug.Log("TIMER HAS RAN OUT");
+        InTurn = false;
+
+        // PROCESS THE TURN RESULTS
     }
 }

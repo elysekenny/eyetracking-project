@@ -18,3 +18,4 @@ MonoBehaviour:
   SpriteColour: {r: 0, g: 0.7838819, b: 1, a: 1}
   FullSprite: {fileID: -8994018455595559979, guid: 10fffe6d1a3d74e459ac4a0502436037, type: 3}
   OverrideSpriteScale: {x: 0.5, y: 0.5, z: 0.5}
+  TurnDuration: 2
