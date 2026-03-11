@@ -3,6 +3,8 @@ using Eyeware.BeamEyeTracker.Unity;
 using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using System;
+using System.Diagnostics.Tracing;
 
 /*
 
@@ -30,8 +32,18 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
     // TIMER STUFF
     private float TimeRemaining          = 0.0f; // this will be specifc to the enemy
-    private float TimerScaleIncrement    = 0.0f;
-    private bool InTurn                  = false;
+
+    //Enumerators
+    public enum COMBAT_STATES {NONE, PLAYER_TURN, ENEMY_TURN, PROCESS_RESULTS, START, END }
+    public enum PLAYER_ACTIONS {NONE, ATTACK, DEFEND, SPECIAL}
+
+    private COMBAT_STATES GameState = COMBAT_STATES.NONE;
+    private PLAYER_ACTIONS PlayerAction = PLAYER_ACTIONS.NONE;
+
+    private void SetupInput()
+    {
+        
+    }
 
     public void Start()
     {
@@ -46,8 +58,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         InitialiseCombatUI();
 
         // INTRO CUTSCENE
-
-        StartCombat();
+        GameState = COMBAT_STATES.START;
+        PlayerTurn();
 
     }
 
@@ -55,14 +67,19 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     {
         // Round timer visual thread
         // Health bar decrement animation
-        if(TimeRemaining <= 0f && InTurn)
+        if(TimeRemaining <= 0f && GameState == COMBAT_STATES.PLAYER_TURN)
         {
             EndTurn();
         }
-        else if(InTurn)
+        else if(GameState == COMBAT_STATES.PLAYER_TURN)
         {
             TimeRemaining -= Time.deltaTime;
-            TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - TimerScaleIncrement, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
+            TimerBar.transform.localScale = new Vector3(Time.deltaTime * TimeRemaining, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
+        }
+
+        if(GameState == COMBAT_STATES.PLAYER_TURN)
+        {
+            // only read the player input when in their turn
         }
     }
 
@@ -112,11 +129,6 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         // lerp the values of the health anim to the new y and the new health percent
     }
-    private void StartCombat()
-    {
-        // run first turn
-        PlayerTurn();
-    }
 
     private void PlayerTurn()
     {
@@ -124,19 +136,16 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         DefMod = 1.0f;
         AtkMod = 1.0f;
 
-        //get the timer increment scale
-        TimerScaleIncrement = Time.deltaTime / CurrentEnemyData.TurnDuration; // this is WRONG
-
         // start the round timer
-        InTurn           = true;
         TimeRemaining    = CurrentEnemyData.TurnDuration;
+        GameState        = COMBAT_STATES.PLAYER_TURN; //starts the timer and lets input be read in the update loop
     }
 
     private void EndTurn()
     {
         // this handles when the turn timer runs out. will update the dialogue box as follows and have a second grace period before the next round starts
         Debug.Log("TIMER HAS RAN OUT");
-        InTurn = false;
+        GameState = COMBAT_STATES.PROCESS_RESULTS;
 
         // PROCESS THE TURN RESULTS
     }
