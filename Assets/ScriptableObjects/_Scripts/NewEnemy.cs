@@ -13,9 +13,21 @@ public class NewEnemy : ScriptableObject
     public Color SpriteColour;
 
     [Header("Combat Data")]
+    public int Health;
+
+    public string AttackName;
+    public int BaseDamage;
+    public int DamageVariance;
+
+    public string SpecialName;
+    public TurnController.ENEMY_SPECIAL_TYPES SpecialType;
+    public float SpecialValue; // Health regained/ Attack damage/ Defence value this is SO versatile
+    public float SpecialChance;
+    public float CriticalChance;
+    public float TurnDuration;
+
     public Sprite FullSprite;
     public Vector3 OverrideSpriteScale;
-    public float TurnDuration;
 
     // TODO: flesh out a weakpoint system using the mask mapping
 }

@@ -16,6 +16,15 @@ MonoBehaviour:
   HudIcon: {fileID: 0}
   WorldReference: {fileID: 3960920397721712598, guid: 1672ddba526c775419239a35dba827b3, type: 3}
   SpriteColour: {r: 1, g: 0, b: 0, a: 1}
+  Health: 100
+  AttackName: Thorn Whip
+  BaseDamage: 6
+  DamageVariance: 1
+  SpecialName: Hail of Thorns
+  SpecialType: 1
+  SpecialValue: 15
+  SpecialChance: 15
+  CriticalChance: 5
+  TurnDuration: 3
   FullSprite: {fileID: 5614637178320563061, guid: b8f0e954b5b9ff847a8a33c484a55353, type: 3}
   OverrideSpriteScale: {x: 0.35, y: 0.35, z: 0.35}
-  TurnDuration: 3

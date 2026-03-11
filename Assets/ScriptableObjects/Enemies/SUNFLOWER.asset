@@ -16,6 +16,15 @@ MonoBehaviour:
   HudIcon: {fileID: 0}
   WorldReference: {fileID: 3960920397721712598, guid: c9b1228277e988042802e4181d6100a4, type: 3}
   SpriteColour: {r: 1, g: 0.7971463, b: 0, a: 1}
+  Health: 50
+  AttackName: Sapping Sting
+  BaseDamage: 4
+  DamageVariance: 2
+  SpecialName: Armour of Agathys
+  SpecialType: 2
+  SpecialValue: 0.5
+  SpecialChance: 25
+  CriticalChance: 15
+  TurnDuration: 3.5
   FullSprite: {fileID: -256329436847572505, guid: bfda104ddb0c0ad43bfabb2a393b9373, type: 3}
   OverrideSpriteScale: {x: 0.35, y: 0.35, z: 0.35}
-  TurnDuration: 3.5

@@ -7,6 +7,7 @@ using System;
 using System.Diagnostics.Tracing;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Unity.Mathematics;
 
 /*
 
@@ -29,17 +30,22 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private GameObject EnemyHealthBarTween;
     private NewEnemy CurrentEnemyData;
 
-    // Active player data
+    // Active player data 🤑🤑🤑
+    private int PlayerMaxHealth          = 200;
     private float DefMod                 = 1.0f; // multiply the enemy's attack by this value
     private float AtkMod                 = 1.0f; // multiply by the players attack (when selecting special this will be 2.0f)
-    private float BaseAttack             = 10.0f;
-    private float AttackVariance         = 2.0f; // 8-12 dmg
+    private int BaseAttack               = 10;
+    private int AttackVariance           = 2; // 8-12 dmg
     private bool WeakpointHighlighted    = false;
+
+    // Active enemy data
+    private float EnemyDefMod            = 1.0f;
+    private float EnemyAtkMod            = 1.0f;
 
     // TIMER STUFF
     private float TimeRemaining          = 0.0f; // this will be specifc to the enemy
 
-    //INPUTS
+    //INPUTS 🤔🤔🤔
     InputAction PlayerAttack;
     InputAction PlayerDefend;
     InputAction PlayerSpecial;
@@ -48,6 +54,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     public enum COMBAT_STATES    {NONE, PLAYER_TURN, ENEMY_TURN, PROCESS_RESULTS, START, END }
     public enum PLAYER_ACTIONS   {NONE, ATTACK, DEFEND, SPECIAL}
     public enum TURN_OWNERS      {NONE, PLAYER, ENEMY}
+    public enum ENEMY_SPECIAL_TYPES {NONE, DAMAGE, DEFEND, HEAL}
 
     private COMBAT_STATES GameState          = COMBAT_STATES.NONE;
     private PLAYER_ACTIONS PlayerAction      = PLAYER_ACTIONS.NONE;
@@ -55,6 +62,10 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
     // Coroutine stuff 🥀🥀🥀 
     IEnumerator TimeDelay(int Period){yield return new WaitForSeconds(Period);} 
+
+    // Data tracking (health and other values that could change in combat) 😵‍💫😵‍💫😵‍💫
+    private int PlayerHealth;
+    private int EnemyHealth;
 
     private void SetupInput()
     {
@@ -69,6 +80,11 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         EnemyLoaded          = GameObject.Find("EnemyData");
         EnemyLoadScript      = EnemyLoaded.GetComponent<LoadEnemy>();
         CurrentEnemyData     = EnemyLoadScript.EnemyToLoad;
+
+        // Set and init the starting health attributes
+        // (player health bar needs to be initialised at the right amount as its passed in each combat)
+        PlayerHealth = 100; // debug value
+        EnemyHealth = CurrentEnemyData.Health;
 
         Debug.Log("Starting combat with " + CurrentEnemyData.DisplayName);
 
@@ -140,7 +156,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     }
 
     // can be used for player or enemy just needs to pass in the correct ui elements based on use case
-    private void DecrementHealth(GameObject HealthBar, GameObject HealthAnim, float HealthRemainingPercent)
+    private void UpdateHealthBar(GameObject HealthBar, GameObject HealthAnim, float HealthRemainingPercent)
     {
         // health bar height = 1000 @ full hp and then decrement the ypos by the decrease amount / 2
         // tween the animation down to the target size of the health bar
@@ -205,16 +221,93 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         }
     }
 
+    private void PlayerAttacksEnemy(bool IsWeakpoint)
+    {
+        // get a random integer betweem the base attack +- the variance then multiply by the attack modifier (base of x1 or x2 for weakpoint attack)
+        System.Random rand   = new System.Random();
+        int AttackValue      = rand.Next(BaseAttack - AttackVariance, BaseAttack + AttackVariance);
+        AttackValue          = (int)math.round(AttackValue * AtkMod * EnemyDefMod);
+
+        EnemyHealth -= AttackValue;
+        math.clamp(EnemyHealth, 0, CurrentEnemyData.Health); //visually health cannot go below 0 
+        float HealthPercent = EnemyHealth / CurrentEnemyData.Health * 100; 
+        UpdateHealthBar(PlayerHealthBar, PlayerHealthBarTween, HealthPercent);
+
+        // Battle box dialogue
+        string Dialogue = $"You hit {CurrentEnemyData.DisplayName} with your attack... /nIt deals {AttackValue} damage!";
+        if(IsWeakpoint){Dialogue = $"You hit {CurrentEnemyData.DisplayName} in the weakpoint/n! IT DEALS {AttackValue} DAMAGE!!!";} //hype and aura
+        BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = Dialogue;
+    }
+
+    private void EnemyAttacksPlayer(int AttackBase, bool IsSpecial)
+    {
+        System.Random rand   = new System.Random();
+
+        if(rand.Next(1,100) <= CurrentEnemyData.CriticalChance){EnemyAtkMod = 2.0f;}
+
+        int AttackValue      = rand.Next(AttackBase - CurrentEnemyData.DamageVariance, AttackBase + CurrentEnemyData.DamageVariance);
+        AttackValue          = (int)math.round(AttackValue * EnemyAtkMod * DefMod);
+
+        PlayerHealth -= AttackValue;
+        math.clamp(PlayerHealth, 0, PlayerMaxHealth); //visually health cannot go below 0 --> debug player max health is hard coded to be 100 but id like this to be an external variable elsewhere
+        float HealthPercent = PlayerHealth / PlayerMaxHealth * 100; 
+        UpdateHealthBar(PlayerHealthBar, PlayerHealthBarTween, HealthPercent);
+
+        // Battle box dialogue
+        string AttackName = CurrentEnemyData.AttackName;
+        if(IsSpecial){AttackName = CurrentEnemyData.SpecialName;}
+        string Dialogue = $"{CurrentEnemyData.DisplayName} uses {AttackName}... /nIt deals {AttackValue} damage!";
+        BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = Dialogue;
+    }
+
     private void EnemyTakeTurn()
     {
         Debug.Log("-- ENEMY TURN START --");
-        GameState = COMBAT_STATES.ENEMY_TURN;
-        CurrentInitiator = TURN_OWNERS.ENEMY;
+        GameState            = COMBAT_STATES.ENEMY_TURN;
+        CurrentInitiator     = TURN_OWNERS.ENEMY;
+
+        // Reset the enemy values that get saved each turn (eg if it defends this has to be used in the player's turn 🥀)
+        EnemyDefMod = 1.0f;
+        EnemyAtkMod = 1.0f;
 
         //UI elements
         BattleBox.transform.Find("Subtitle").gameObject.GetComponent<TextMeshProUGUI>().text         = "Enemy turn...";  
         BattleBox.transform.Find("SubtitleShadow").gameObject.GetComponent<TextMeshProUGUI>().text   = "Enemy turn...";  
         BattleBox.transform.Find("TurnResults").gameObject.SetActive(false);
+
+        // Enemy Turn Action determination
+        // Use the % chance of doing a special and either do a special or just do an attack if its not a special attack
+        System.Random rand = new System.Random();
+        if(rand.Next(1, 100) <= CurrentEnemyData.SpecialChance)
+        {
+            switch(CurrentEnemyData.SpecialType)
+            {
+                case ENEMY_SPECIAL_TYPES.DAMAGE:
+                    EnemyAttacksPlayer((int)CurrentEnemyData.SpecialValue, true);
+                    break;
+
+                case ENEMY_SPECIAL_TYPES.DEFEND:
+                    EnemyDefMod = CurrentEnemyData.SpecialValue;
+
+                    // Battle box nonsense
+                    string Dialogue = $"{CurrentEnemyData.DisplayName} uses {CurrentEnemyData.SpecialName}... /nIt looks like it is fortifying for your next turn!";
+                    BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = Dialogue;
+                    break;
+
+                case ENEMY_SPECIAL_TYPES.HEAL:
+                    EnemyHealth += (int)CurrentEnemyData.SpecialValue;
+                    math.clamp(EnemyHealth, 0, CurrentEnemyData.Health); // they cannot have more health than they have health
+                    UpdateHealthBar(EnemyHealthBar, EnemyHealthBarTween, EnemyHealth / CurrentEnemyData.Health * 100); // readjust the health bar
+
+                    // Battle box nonsense
+                    string _Dialogue = $"{CurrentEnemyData.DisplayName} uses {CurrentEnemyData.SpecialName}... /nIt heals {CurrentEnemyData.SpecialValue} health back!";
+                    BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = _Dialogue;
+                    break;
+            }
+        }
+
+        else {EnemyAttacksPlayer(CurrentEnemyData.BaseDamage, false);}
+
 
         // Turn is over
         StartCoroutine(TimeDelay(2));
@@ -242,28 +335,35 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
                         break;
                     
                     case PLAYER_ACTIONS.ATTACK:
+                        PlayerAttacksEnemy(false);
                         break;
 
                     case PLAYER_ACTIONS.DEFEND:
+                        DefMod = 0.5f;
+
+                         // Battle box nonsense
+                        string Dialogue = $"You prepare for an enemy attack...";
+                        BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = Dialogue;
                         break;
 
                     case PLAYER_ACTIONS.SPECIAL:
+                        AtkMod = 2.0f;
+                        PlayerAttacksEnemy(true); // note is weakpoint is already handled with AtkMod but this just adds an extra layer of flavour text
                         break;
                 }
 
-                //SET THE DIALOGUE BOX TO THE CORRECT TEXT
-                // ADJUST OPPONENT HEALTH BAR 
-
                 StartCoroutine(TimeDelay(1));
+
+                // check if the enemy is dead after the player's turn
+
                 EnemyTakeTurn();
 
                 break;
 
             case TURN_OWNERS.ENEMY:
-                //PROCESS THE END RESULTS FOR THE ENEMY
-                //Set the text to what it needs to be
+                StartCoroutine(TimeDelay(2));
 
-                StartCoroutine(TimeDelay(3));
+                // check if the player is dead after attacked by the enemy
                 PlayerTurnStart();
                 break;
         }
