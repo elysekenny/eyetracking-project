@@ -3752,6 +3752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CombatUI: {fileID: 544337784}
+  BattleBox: {fileID: 2116125168}
 --- !u!114 &1573216480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4690,7 +4691,7 @@ GameObject:
   - component: {fileID: 2102042300}
   - component: {fileID: 2102042299}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TextOutput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
