@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Unity.VisualScripting;
 using System;
 using System.Diagnostics.Tracing;
+using UnityEngine.InputSystem;
 
 /*
 
@@ -33,16 +34,25 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     // TIMER STUFF
     private float TimeRemaining          = 0.0f; // this will be specifc to the enemy
 
-    //Enumerators
-    public enum COMBAT_STATES {NONE, PLAYER_TURN, ENEMY_TURN, PROCESS_RESULTS, START, END }
-    public enum PLAYER_ACTIONS {NONE, ATTACK, DEFEND, SPECIAL}
+    //INPUTS
+    InputAction PlayerAttack;
+    InputAction PlayerDefend;
+    InputAction PlayerSpecial;
 
-    private COMBAT_STATES GameState = COMBAT_STATES.NONE;
-    private PLAYER_ACTIONS PlayerAction = PLAYER_ACTIONS.NONE;
+    //Enumerators
+    public enum COMBAT_STATES    {NONE, PLAYER_TURN, ENEMY_TURN, PROCESS_RESULTS, START, END }
+    public enum PLAYER_ACTIONS   {NONE, ATTACK, DEFEND, SPECIAL}
+    public enum TURN_OWNERS      {NONE, PLAYER, ENEMY}
+
+    private COMBAT_STATES GameState          = COMBAT_STATES.NONE;
+    private PLAYER_ACTIONS PlayerAction      = PLAYER_ACTIONS.NONE;
+    private TURN_OWNERS CurrentInitiator     = TURN_OWNERS.NONE;
 
     private void SetupInput()
     {
-        
+        PlayerAttack     =  InputSystem.actions.FindAction("Attack");
+        PlayerDefend     =  InputSystem.actions.FindAction("Defend");
+        PlayerSpecial    =  InputSystem.actions.FindAction("Special");
     }
 
     public void Start()
@@ -55,11 +65,13 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         Debug.Log("Starting combat with " + CurrentEnemyData.DisplayName);
 
         SetupUIAttributes(); // set all the references to the ui attributes requried
+        SetupInput();
+
         InitialiseCombatUI();
 
         // INTRO CUTSCENE
         GameState = COMBAT_STATES.START;
-        PlayerTurn();
+        PlayerTurnStart();
 
     }
 
@@ -69,6 +81,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         // Health bar decrement animation
         if(TimeRemaining <= 0f && GameState == COMBAT_STATES.PLAYER_TURN)
         {
+            PlayerAction = PLAYER_ACTIONS.NONE;
             EndTurn();
         }
         else if(GameState == COMBAT_STATES.PLAYER_TURN)
@@ -80,6 +93,9 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         if(GameState == COMBAT_STATES.PLAYER_TURN)
         {
             // only read the player input when in their turn
+            if(PlayerAttack.WasPressedThisFrame())   {PlayerTryAttack();}
+            if(PlayerDefend.WasPressedThisFrame())   {PlayerTryDefend();}
+            if(PlayerSpecial.WasPressedThisFrame())  {PlayerTrySpecial();}
         }
     }
 
@@ -130,7 +146,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         // lerp the values of the health anim to the new y and the new health percent
     }
 
-    private void PlayerTurn()
+    private void PlayerTurnStart()
     {
         // reset the modifiers to their default x1
         DefMod = 1.0f;
@@ -139,6 +155,32 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         // start the round timer
         TimeRemaining    = CurrentEnemyData.TurnDuration;
         GameState        = COMBAT_STATES.PLAYER_TURN; //starts the timer and lets input be read in the update loop
+    }
+
+    private void PlayerTryAttack()
+    {
+        Debug.Log("Player use ATTACK action");
+
+        // This action is always available to the player i just put try in the func nmae for love of the game
+        PlayerAction = PLAYER_ACTIONS.ATTACK;
+        GameState = COMBAT_STATES.PROCESS_RESULTS; // end the player turn
+    }
+
+    private void PlayerTryDefend()
+    {
+        Debug.Log("Player use DEFEND action");
+
+        // This action is always available to the player i just put try in the func nmae for love of the game
+        PlayerAction = PLAYER_ACTIONS.DEFEND;
+        GameState = COMBAT_STATES.PROCESS_RESULTS; // end the player turn
+    }
+
+    private void PlayerTrySpecial()
+    {
+        Debug.Log("Player use SPECIAL action");
+
+        // CHECK IF THE PLAYER HAS A WEAKPOINT HIGHLIGHTED CORRECTLY
+
     }
 
     private void EndTurn()
