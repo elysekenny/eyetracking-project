@@ -31,7 +31,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private NewEnemy CurrentEnemyData;
 
     // Active player data 🤑🤑🤑
-    private int PlayerMaxHealth          = 200;
+    private int PlayerMaxHealth          = 400;
     private float DefMod                 = 1.0f; // multiply the enemy's attack by this value
     private float AtkMod                 = 1.0f; // multiply by the players attack (when selecting special this will be 2.0f)
     private int BaseAttack               = 10;
