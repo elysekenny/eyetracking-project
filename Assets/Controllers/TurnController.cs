@@ -85,8 +85,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         // Set and init the starting health attributes
         // (player health bar needs to be initialised at the right amount as its passed in each combat)
-        PlayerHealth = 100; // debug value
-        EnemyHealth = CurrentEnemyData.Health;
+        PlayerHealth     = PlayerMaxHealth; // debug value
+        EnemyHealth      = CurrentEnemyData.Health;
 
         Debug.Log("Starting combat with " + CurrentEnemyData.DisplayName);
 
@@ -170,6 +170,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         HealthBar.transform.localScale   = new Vector3(1, HealthRemainingPercent / 100, 1);
 
         // lerp the values of the health anim to the new y and the new health percent
+
+        // Debug.Log($"New health percent = {HealthRemainingPercent}%");
     }
 
     private void PlayerTurnStart()
@@ -186,7 +188,6 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         BattleBox.transform.Find("PlayerButtons").gameObject.SetActive(true);
         BattleBox.transform.Find("TurnResults").gameObject.SetActive(false);
         BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").GetComponent<TextMeshProUGUI>().text = "";
-
 
         // start the round timer
         GameState        = COMBAT_STATES.PLAYER_TURN; //starts the timer and lets input be read in the update loop
@@ -232,8 +233,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         EnemyHealth -= AttackValue;
         math.clamp(EnemyHealth, 0, CurrentEnemyData.Health); //visually health cannot go below 0 
-        float HealthPercent = EnemyHealth / CurrentEnemyData.Health * 100; 
-        UpdateHealthBar(PlayerHealthBar, PlayerHealthBarTween, HealthPercent);
+        float HealthPercent = (float)((float)EnemyHealth / (float)CurrentEnemyData.Health * 100); 
+        UpdateHealthBar(EnemyHealthBar, EnemyHealthBarTween, HealthPercent);
 
         // Battle box dialogue
         string Dialogue = $"You hit {CurrentEnemyData.DisplayName} with your attack... \nIt deals {AttackValue} damage!";
@@ -252,7 +253,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         PlayerHealth -= AttackValue;
         math.clamp(PlayerHealth, 0, PlayerMaxHealth); //visually health cannot go below 0 --> debug player max health is hard coded to be 100 but id like this to be an external variable elsewhere
-        float HealthPercent = PlayerHealth / PlayerMaxHealth * 100; 
+        float HealthPercent = (float)((float)PlayerHealth / (float)PlayerMaxHealth * 100); 
         UpdateHealthBar(PlayerHealthBar, PlayerHealthBarTween, HealthPercent);
 
         // Battle box dialogue
@@ -299,7 +300,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
                 case ENEMY_SPECIAL_TYPES.HEAL:
                     EnemyHealth += (int)CurrentEnemyData.SpecialValue;
                     math.clamp(EnemyHealth, 0, CurrentEnemyData.Health); // they cannot have more health than they have health
-                    UpdateHealthBar(EnemyHealthBar, EnemyHealthBarTween, EnemyHealth / CurrentEnemyData.Health * 100); // readjust the health bar
+                    float HealthPercent = (float)((float) EnemyHealth / (float) CurrentEnemyData.Health * 100);
+                    UpdateHealthBar(EnemyHealthBar, EnemyHealthBarTween, HealthPercent); // readjust the health bar
 
                     // Battle box nonsense
                     string _Dialogue = $"{CurrentEnemyData.DisplayName} uses {CurrentEnemyData.SpecialName}... \nIt heals {CurrentEnemyData.SpecialValue} health back!";
@@ -310,7 +312,6 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         else {EnemyAttacksPlayer(CurrentEnemyData.BaseDamage, false);}
 
-
         // Turn is over
         Invoke(nameof(EndTurn), 2.0f);
     }
@@ -319,9 +320,9 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     {
         // this handles when the turn timer runs out. will update the dialogue box as follows and have a second grace period before the next round starts
         // Debug.Log(">> END TURN STATE <<");
-        GameState        = COMBAT_STATES.PROCESS_RESULTS;
-        TimeRemaining    = CurrentEnemyData.TurnDuration; // RESET THE TIMER FOR THE NEXT PLAYER TURN
-        TimerBar.transform.localScale = new Vector3(TimerFilledVal, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
+        GameState                        = COMBAT_STATES.PROCESS_RESULTS;
+        TimeRemaining                    = CurrentEnemyData.TurnDuration; // RESET THE TIMER FOR THE NEXT PLAYER TURN
+        TimerBar.transform.localScale    = new Vector3(TimerFilledVal, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
 
         BattleBox.transform.Find("PlayerButtons").gameObject.SetActive(false);
         BattleBox.transform.Find("TurnResults").gameObject.SetActive(true);
