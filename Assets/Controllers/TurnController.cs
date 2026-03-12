@@ -67,6 +67,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private int PlayerHealth;
     private int EnemyHealth;
 
+    private float TimerFilledVal;
+
     private void SetupInput()
     {
         PlayerAttack     =  InputSystem.actions.FindAction("Combat.Attack");
@@ -111,8 +113,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             if(PlayerDefend.WasPressedThisFrame())   {PlayerTryDefend();}
             if(PlayerSpecial.WasPressedThisFrame())  {PlayerTrySpecial();}
 
-            TimeRemaining -= 0.01f;
-            TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - 0.01f, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
+            TimeRemaining -= Time.deltaTime;
+            TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
 
             if(TimeRemaining <= 0f)
             {
@@ -145,6 +147,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private void SetupUIAttributes()
     {
         TimerBar              = CombatUI.gameObject.transform.Find("RoundTimer").gameObject.transform.Find("TimerBar").gameObject;
+        TimerFilledVal        = TimerBar.transform.localScale.x;
 
         // Player health assets
         PlayerHealthBar       = CombatUI.gameObject.transform.Find("PlayerHealth").gameObject.transform.Find("PlayerHealthBar").gameObject;
@@ -171,7 +174,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
     private void PlayerTurnStart()
     {
-        Debug.Log("-- PLAYER TURN START --");
+        // Debug.Log("-- PLAYER TURN START --");
 
         // reset the modifiers to their default x1
         DefMod = 1.0f;
@@ -186,14 +189,13 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
 
         // start the round timer
-        TimeRemaining    = CurrentEnemyData.TurnDuration;
         GameState        = COMBAT_STATES.PLAYER_TURN; //starts the timer and lets input be read in the update loop
         CurrentInitiator = TURN_OWNERS.PLAYER;
     }
 
     private void PlayerTryAttack()
     {
-        Debug.Log("Player use ATTACK action");
+        // Debug.Log("Player use ATTACK action");
 
         // This action is always available to the player i just put try in the func nmae for love of the game
         PlayerAction = PLAYER_ACTIONS.ATTACK;
@@ -202,7 +204,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
     private void PlayerTryDefend()
     {
-        Debug.Log("Player use DEFEND action");
+        // Debug.Log("Player use DEFEND action");
 
         // This action is always available to the player i just put try in the func nmae for love of the game
         PlayerAction = PLAYER_ACTIONS.DEFEND;
@@ -211,7 +213,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
     private void PlayerTrySpecial()
     {
-        Debug.Log("Player try SPECIAL action");
+        // Debug.Log("Player try SPECIAL action");
 
         // CHECK IF THE PLAYER HAS A WEAKPOINT HIGHLIGHTED CORRECTLY
         if (WeakpointHighlighted)
@@ -234,8 +236,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         UpdateHealthBar(PlayerHealthBar, PlayerHealthBarTween, HealthPercent);
 
         // Battle box dialogue
-        string Dialogue = $"You hit {CurrentEnemyData.DisplayName} with your attack... /nIt deals {AttackValue} damage!";
-        if(IsWeakpoint){Dialogue = $"You hit {CurrentEnemyData.DisplayName} in the weakpoint/n! IT DEALS {AttackValue} DAMAGE!!!";} //hype and aura
+        string Dialogue = $"You hit {CurrentEnemyData.DisplayName} with your attack... \nIt deals {AttackValue} damage!";
+        if(IsWeakpoint){Dialogue = $"You hit {CurrentEnemyData.DisplayName} in the weakpoint\n! IT DEALS {AttackValue} DAMAGE!!!";} //hype and aura
         BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = Dialogue;
     }
 
@@ -256,13 +258,13 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         // Battle box dialogue
         string AttackName = CurrentEnemyData.AttackName;
         if(IsSpecial){AttackName = CurrentEnemyData.SpecialName;}
-        string Dialogue = $"{CurrentEnemyData.DisplayName} uses {AttackName}... /nIt deals {AttackValue} damage!";
+        string Dialogue = $"{CurrentEnemyData.DisplayName} uses {AttackName}... \nIt deals {AttackValue} damage!";
         BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = Dialogue;
     }
 
     private void EnemyTakeTurn()
     {
-        Debug.Log("-- ENEMY TURN START --");
+        // Debug.Log("-- ENEMY TURN START --");
         GameState            = COMBAT_STATES.ENEMY_TURN;
         CurrentInitiator     = TURN_OWNERS.ENEMY;
 
@@ -290,7 +292,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
                     EnemyDefMod = CurrentEnemyData.SpecialValue;
 
                     // Battle box nonsense
-                    string Dialogue = $"{CurrentEnemyData.DisplayName} uses {CurrentEnemyData.SpecialName}... /nIt looks like it is fortifying for your next turn!";
+                    string Dialogue = $"{CurrentEnemyData.DisplayName} uses {CurrentEnemyData.SpecialName}... \nIt looks like it is fortifying for your next turn!";
                     BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = Dialogue;
                     break;
 
@@ -300,7 +302,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
                     UpdateHealthBar(EnemyHealthBar, EnemyHealthBarTween, EnemyHealth / CurrentEnemyData.Health * 100); // readjust the health bar
 
                     // Battle box nonsense
-                    string _Dialogue = $"{CurrentEnemyData.DisplayName} uses {CurrentEnemyData.SpecialName}... /nIt heals {CurrentEnemyData.SpecialValue} health back!";
+                    string _Dialogue = $"{CurrentEnemyData.DisplayName} uses {CurrentEnemyData.SpecialName}... \nIt heals {CurrentEnemyData.SpecialValue} health back!";
                     BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = _Dialogue;
                     break;
             }
@@ -310,20 +312,19 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
 
         // Turn is over
-        StartCoroutine(TimeDelay(2));
-        EndTurn();
+        Invoke(nameof(EndTurn), 2.0f);
     }
 
     private void EndTurn()
     {
         // this handles when the turn timer runs out. will update the dialogue box as follows and have a second grace period before the next round starts
-        Debug.Log(">> END TURN STATE <<");
-        GameState = COMBAT_STATES.PROCESS_RESULTS;
+        // Debug.Log(">> END TURN STATE <<");
+        GameState        = COMBAT_STATES.PROCESS_RESULTS;
+        TimeRemaining    = CurrentEnemyData.TurnDuration; // RESET THE TIMER FOR THE NEXT PLAYER TURN
+        TimerBar.transform.localScale = new Vector3(TimerFilledVal, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
 
         BattleBox.transform.Find("PlayerButtons").gameObject.SetActive(false);
         BattleBox.transform.Find("TurnResults").gameObject.SetActive(true);
-
-        // PROCESS THE TURN RESULTS
         
         switch(CurrentInitiator)
         {
@@ -332,6 +333,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
                 switch (PlayerAction)
                 {
                     case PLAYER_ACTIONS.NONE:
+                        string dialogue = $"You wasted your time this turn...";
+                        BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").gameObject.GetOrAddComponent<TextMeshProUGUI>().text = dialogue;
                         break;
                     
                     case PLAYER_ACTIONS.ATTACK:
@@ -352,20 +355,38 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
                         break;
                 }
 
-                StartCoroutine(TimeDelay(1));
-
-                // check if the enemy is dead after the player's turn
-
-                EnemyTakeTurn();
-
+                Invoke(nameof(ResumeAsEnemy), 1.5f);
                 break;
 
             case TURN_OWNERS.ENEMY:
-                StartCoroutine(TimeDelay(2));
-
-                // check if the player is dead after attacked by the enemy
-                PlayerTurnStart();
+                Invoke(nameof(ResumeAsPlayer), 1.5f);
                 break;
+        }
+    }
+
+    private void ResumeAsPlayer()
+    {
+        // check if the player is dead after attacked by the enemy
+        if(PlayerHealth <= 0)
+        {
+            Debug.Log(">> THE PLAYER IS DEAD <<");
+        }
+        else
+        {
+            PlayerTurnStart();
+        }
+    }
+
+    private void ResumeAsEnemy()
+    {
+        // check if the enemy is dead after the player's turn
+        if(EnemyHealth <= 0)
+        {
+            Debug.Log(">> THE ENEMY IS DEAD <<");
+        }
+        else
+        {
+            EnemyTakeTurn();
         }
     }
 }
