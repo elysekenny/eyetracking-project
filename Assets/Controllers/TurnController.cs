@@ -31,7 +31,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private NewEnemy CurrentEnemyData;
 
     // Active player data 🤑🤑🤑
-    private int PlayerMaxHealth          = 400;
+    private int PlayerMaxHealth          = 200;
     private float DefMod                 = 1.0f; // multiply the enemy's attack by this value
     private float AtkMod                 = 1.0f; // multiply by the players attack (when selecting special this will be 2.0f)
     private int BaseAttack               = 10;
@@ -68,6 +68,12 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private int EnemyHealth;
 
     private float TimerFilledVal;
+
+    private GameObject HealthBarToTween;
+    private float TargetNewSize;
+    private float TargetNewPos;
+    private bool AnimateHealthBar    = false;
+    private int AnimDirection        = -1;
 
     private void SetupInput()
     {
@@ -122,6 +128,9 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
                 EndTurn();
             }
         }
+
+        // health bar visual tween
+        // if(AnimateHealthBar){AnimateHealth();}
     }
 
     private void InitialiseCombatUI()
@@ -142,6 +151,14 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         EnemySprite_Shadow.sprite                 = CurrentEnemyData.FullSprite;
         EnemySprite.transform.localScale          = CurrentEnemyData.OverrideSpriteScale;
         EnemySprite_Shadow.transform.localScale   = CurrentEnemyData.OverrideSpriteScale;
+
+        //Health bar values that differ from enemy to enemy
+        EnemyHealthBar.GetComponent<SpriteRenderer>().color          = CurrentEnemyData.FillColour;
+        EnemyHealthBarTween.GetComponent<SpriteRenderer>().color     = CurrentEnemyData.TweenColour;
+
+        CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("EnemyHealthBacking").gameObject.GetComponent<SpriteRenderer>().color        = CurrentEnemyData.BackingColour;
+        CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("HealthBarMask").gameObject.GetComponent<SpriteMask>().sprite                = CurrentEnemyData.HealthBarMask;
+        CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("EnemyHealthBarOverlay").gameObject.GetComponent<SpriteRenderer>().sprite    = CurrentEnemyData.HealthBarOutline;
     }
 
     private void SetupUIAttributes()
@@ -163,15 +180,31 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     {
         // health bar height = 1000 @ full hp and then decrement the ypos by the decrease amount / 2
         // tween the animation down to the target size of the health bar
-        float NewHeight  = 1000 * (HealthRemainingPercent / 100); // 50% health means multiply by 0.5
-        float NewYPos    = NewHeight / 2;
+        float DamageTaken    = 1 - (HealthRemainingPercent / 100);
+        float NewYPos        = 1100 * DamageTaken; // 50% health means multiply by 0.5
 
-        HealthBar.transform.position     = new Vector3(HealthBar.transform.position.x, NewYPos, HealthBar.transform.position.z);
-        HealthBar.transform.localScale   = new Vector3(1, HealthRemainingPercent / 100, 1);
+        Debug.Log("Damage % = " + DamageTaken + " >> Position is: -" + NewYPos);
 
-        // lerp the values of the health anim to the new y and the new health percent
+        if(HealthRemainingPercent / 100 > HealthBar.transform.localScale.y){AnimDirection = 1;}
+        else{AnimDirection = -1;}
 
+        HealthBar.transform.position     = new Vector3(HealthBar.transform.position.x, -NewYPos, HealthBar.transform.position.z);
+        Debug.Log( HealthBar.transform.position);
+        // HealthBar.transform.localScale   = new Vector3( HealthBar.transform.localScale.x, HealthRemainingPercent / 100, 1);
+
+        // HealthBarToTween     = HealthAnim;
+        // TargetNewSize        = HealthRemainingPercent / 100;
+
+        // AnimateHealthBar     = true;
         // Debug.Log($"New health percent = {HealthRemainingPercent}%");
+    }
+
+    private void AnimateHealth()
+    {
+        if(HealthBarToTween.transform.localScale.y <= TargetNewSize){AnimateHealthBar = false;} // should be true for healing health too
+        // apply to the healthbarToTween
+        HealthBarToTween.transform.localScale    = new Vector3(1,  HealthBarToTween.transform.localScale.y + (AnimDirection * Time.deltaTime), 1);
+        HealthBarToTween.transform.position      = new Vector3(HealthBarToTween.transform.position.x, HealthBarToTween.transform.position.y + (AnimDirection * Time.deltaTime), HealthBarToTween.transform.position.z);
     }
 
     private void PlayerTurnStart()

@@ -28,3 +28,8 @@ MonoBehaviour:
   TurnDuration: 3.5
   FullSprite: {fileID: -256329436847572505, guid: bfda104ddb0c0ad43bfabb2a393b9373, type: 3}
   OverrideSpriteScale: {x: 0.35, y: 0.35, z: 0.35}
+  HealthBarMask: {fileID: 2292951016950184029, guid: 5602dba675b981e478b766e507f21328, type: 3}
+  HealthBarOutline: {fileID: -4902977648772629480, guid: 6687ab2bc394a154da797cccb8c9127a, type: 3}
+  BackingColour: {r: 0.38993704, g: 0.30261403, b: 0, a: 1}
+  TweenColour: {r: 1, g: 0.8949093, b: 0.6194968, a: 1}
+  FillColour: {r: 1, g: 0.70087343, b: 0, a: 1}

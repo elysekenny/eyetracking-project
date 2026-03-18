@@ -29,5 +29,12 @@ public class NewEnemy : ScriptableObject
     public Sprite FullSprite;
     public Vector3 OverrideSpriteScale;
 
+    [Header("Healthbar Data")]
+    public Sprite HealthBarMask;
+    public Sprite HealthBarOutline;
+    public Color BackingColour;
+    public Color TweenColour;
+    public Color FillColour;
+
     // TODO: flesh out a weakpoint system using the mask mapping
 }
