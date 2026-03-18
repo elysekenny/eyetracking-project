@@ -23,6 +23,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
     public GameObject CombatUI;
     public GameObject BattleBox;
+    public GameObject MaskRef;
     private GameObject TimerBar;
     private GameObject PlayerHealthBar;
     private GameObject PlayerHealthBarTween;
@@ -120,7 +121,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             if(PlayerSpecial.WasPressedThisFrame())  {PlayerTrySpecial();}
 
             TimeRemaining -= Time.deltaTime;
-            TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
+            // TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
+            TimerBar.transform.position = new Vector3(TimerBar.transform.position.x + Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.position.y, TimerBar.transform.position.z);
 
             if(TimeRemaining <= 0f)
             {
@@ -144,13 +146,18 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         DisplayName.color        = CurrentEnemyData.SpriteColour;
 
         // ENEMY ICON
-        Image EnemySprite            = CombatUI.gameObject.transform.Find("EnemySprite").gameObject.GetComponent<Image>();
-        Image EnemySprite_Shadow     = CombatUI.gameObject.transform.Find("EnemyShadow").gameObject.GetComponent<Image>();
+        SpriteRenderer EnemySprite            = CombatUI.gameObject.transform.Find("Enemy").gameObject.transform.Find("EnemySprite").GetComponent<SpriteRenderer>();
+        SpriteRenderer EnemySprite_Shadow     = CombatUI.gameObject.transform.Find("Enemy").gameObject.transform.Find("EnemyShadow").GetComponent<SpriteRenderer>();
+        SpriteRenderer EnemyMask              = CombatUI.gameObject.transform.Find("Enemy").gameObject.transform.Find("EnemyOverlay").GetComponent<SpriteRenderer>();
         
         EnemySprite.sprite                        = CurrentEnemyData.FullSprite;
         EnemySprite_Shadow.sprite                 = CurrentEnemyData.FullSprite;
+        EnemyMask.sprite                          = CurrentEnemyData.FullSprite;
+        EnemyMask.color                           = CurrentEnemyData.WeakpointMaskColour;
+
         EnemySprite.transform.localScale          = CurrentEnemyData.OverrideSpriteScale;
         EnemySprite_Shadow.transform.localScale   = CurrentEnemyData.OverrideSpriteScale;
+        EnemyMask.transform.localScale            = CurrentEnemyData.OverrideSpriteScale;
 
         //Health bar values that differ from enemy to enemy
         EnemyHealthBar.GetComponent<SpriteRenderer>().color          = CurrentEnemyData.FillColour;
@@ -159,6 +166,13 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("EnemyHealthBacking").gameObject.GetComponent<SpriteRenderer>().color        = CurrentEnemyData.BackingColour;
         CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("HealthBarMask").gameObject.GetComponent<SpriteMask>().sprite                = CurrentEnemyData.HealthBarMask;
         CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("EnemyHealthBarOverlay").gameObject.GetComponent<SpriteRenderer>().sprite    = CurrentEnemyData.HealthBarOutline;
+        CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("TopSprite").gameObject.GetComponent<SpriteRenderer>().sprite                = CurrentEnemyData.HealthBarOutline;
+        CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("TopSprite").gameObject.GetComponent<SpriteRenderer>().color                 = CurrentEnemyData.SecondaryTint;
+        CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("UnderSprite").gameObject.GetComponent<SpriteRenderer>().sprite              = CurrentEnemyData.HealthBarMask;
+
+        MaskRef.GetComponent<SpriteMask>().sprite    = CurrentEnemyData.HudIcon;
+        MaskRef.transform.localScale                 = CurrentEnemyData.SpriteMaskDimensions;
+
     }
 
     private void SetupUIAttributes()
@@ -183,13 +197,10 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         float DamageTaken    = 1 - (HealthRemainingPercent / 100);
         float NewYPos        = 1100 * DamageTaken; // 50% health means multiply by 0.5
 
-        Debug.Log("Damage % = " + DamageTaken + " >> Position is: -" + NewYPos);
-
         if(HealthRemainingPercent / 100 > HealthBar.transform.localScale.y){AnimDirection = 1;}
         else{AnimDirection = -1;}
 
-        HealthBar.transform.position     = new Vector3(HealthBar.transform.position.x, -NewYPos, HealthBar.transform.position.z);
-        Debug.Log( HealthBar.transform.position);
+        HealthBar.transform.position = new Vector3(HealthBar.transform.position.x, -NewYPos, HealthBar.transform.position.z);
         // HealthBar.transform.localScale   = new Vector3( HealthBar.transform.localScale.x, HealthRemainingPercent / 100, 1);
 
         // HealthBarToTween     = HealthAnim;
@@ -355,7 +366,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         // Debug.Log(">> END TURN STATE <<");
         GameState                        = COMBAT_STATES.PROCESS_RESULTS;
         TimeRemaining                    = CurrentEnemyData.TurnDuration; // RESET THE TIMER FOR THE NEXT PLAYER TURN
-        TimerBar.transform.localScale    = new Vector3(TimerFilledVal, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
+        // TimerBar.transform.localScale    = new Vector3(TimerFilledVal, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
+        TimerBar.transform.position      = new Vector3(0, TimerBar.transform.position.y, TimerBar.transform.position.z);
 
         BattleBox.transform.Find("PlayerButtons").gameObject.SetActive(false);
         BattleBox.transform.Find("TurnResults").gameObject.SetActive(true);

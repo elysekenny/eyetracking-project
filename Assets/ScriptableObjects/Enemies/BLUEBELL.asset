@@ -27,9 +27,12 @@ MonoBehaviour:
   CriticalChance: 10
   TurnDuration: 2
   FullSprite: {fileID: -8994018455595559979, guid: 10fffe6d1a3d74e459ac4a0502436037, type: 3}
-  OverrideSpriteScale: {x: 0.5, y: 0.5, z: 0.5}
+  OverrideSpriteScale: {x: 35, y: 35, z: 1}
+  SpriteMaskDimensions: {x: 20, y: 20, z: 1}
+  WeakpointMaskColour: {r: 0, g: 0.45488644, b: 1, a: 1}
   HealthBarMask: {fileID: 2989544432424860857, guid: 29dd51fee2fed6b4a93f7b88d869e296, type: 3}
   HealthBarOutline: {fileID: -4497563484039705380, guid: 6837e41b6abd7c140a2e1a506da02072, type: 3}
   BackingColour: {r: 0, g: 0.112428986, b: 0.30817598, a: 1}
   TweenColour: {r: 0.75157225, g: 0.9585172, b: 1, a: 1}
   FillColour: {r: 0, g: 0.5193975, b: 0.7647059, a: 1}
+  SecondaryTint: {r: 0.39215687, g: 0, b: 1, a: 0.74509805}
