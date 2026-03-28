@@ -1,0 +1,767 @@
+fileFormatVersion: 2
+guid: 7239c504a9cd15b45ae3fa4f8173ac9a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 37476903237469884
+    second: Player Health Bar filled_0
+  - first:
+      213: -8371376843396353472
+    second: Player Health Bar filled_1
+  - first:
+      213: -7273995772090722395
+    second: Player Health Bar filled_2
+  - first:
+      213: 7132305863342835313
+    second: Player Health Bar filled_3
+  - first:
+      213: -5189004737223382809
+    second: Player Health Bar filled_4
+  - first:
+      213: 7290195952080162192
+    second: Player Health Bar filled_5
+  - first:
+      213: -32603766686532976
+    second: Player Health Bar filled_6
+  - first:
+      213: 6567069143473590482
+    second: Player Health Bar filled_7
+  - first:
+      213: -3585059837958988050
+    second: Player Health Bar filled_8
+  - first:
+      213: -8956426273476498374
+    second: Player Health Bar filled_9
+  - first:
+      213: 8131714725925300126
+    second: Player Health Bar filled_10
+  - first:
+      213: 2499459413349978507
+    second: Player Health Bar filled_11
+  - first:
+      213: -2968810047150879238
+    second: Player Health Bar filled_12
+  - first:
+      213: 7467260843053580013
+    second: Player Health Bar filled_13
+  - first:
+      213: -4907625307441374491
+    second: Player Health Bar filled_14
+  - first:
+      213: -6210621780385963944
+    second: Player Health Bar filled_15
+  - first:
+      213: -1095254910299902050
+    second: Player Health Bar filled_16
+  - first:
+      213: 6454981085954917656
+    second: Player Health Bar filled_17
+  - first:
+      213: -8281687710616048643
+    second: Player Health Bar filled_18
+  - first:
+      213: 2726709104268407151
+    second: Player Health Bar filled_19
+  - first:
+      213: -1820531935307203261
+    second: Player Health Bar filled_20
+  - first:
+      213: 3677995140856574702
+    second: Player Health Bar filled_21
+  - first:
+      213: -3970884841283354437
+    second: Player Health Bar filled_22
+  - first:
+      213: -2787280772586417443
+    second: Player Health Bar filled_23
+  - first:
+      213: -1661658687183651142
+    second: Player Health Bar filled_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Player Health Bar filled_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1074
+        height: 2499
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb640c08b05258000800000000000000
+      internalID: 37476903237469884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_1
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 0
+        width: 23
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 042fd684d15e2db80800000000000000
+      internalID: -8371376843396353472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_2
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 0
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a7d6d272639d0b90800000000000000
+      internalID: -7273995772090722395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_3
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 2
+        width: 23
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1764cf5e46a0bf260800000000000000
+      internalID: 7132305863342835313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_4
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 4
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e82bfb1fa3fcf7b0800000000000000
+      internalID: -5189004737223382809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_5
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 0
+        width: 27
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09d8ab2e79afb2560800000000000000
+      internalID: 7290195952080162192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_6
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 0
+        width: 32
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09a3f440c0b2c8ff0800000000000000
+      internalID: -32603766686532976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_7
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 3
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d01c28979ae22b50800000000000000
+      internalID: 6567069143473590482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_8
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 4
+        width: 14
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eee5fe3621f4f3ec0800000000000000
+      internalID: -3585059837958988050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_9
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 0
+        width: 26
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3c2578e1c164b380800000000000000
+      internalID: -8956426273476498374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_10
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 0
+        width: 42
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e972795a577a9d070800000000000000
+      internalID: 8131714725925300126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_11
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 2
+        width: 14
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b815b3ff71ddfa220800000000000000
+      internalID: 2499459413349978507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_12
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 3
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afd06f5ddfaacc6d0800000000000000
+      internalID: -2968810047150879238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_13
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 0
+        width: 17
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dee746b6c2a01a760800000000000000
+      internalID: 7467260843053580013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_14
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 2
+        width: 21
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ea5d3bd8cc94ebb0800000000000000
+      internalID: -4907625307441374491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_15
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 0
+        width: 18
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8506ac165607fc9a0800000000000000
+      internalID: -6210621780385963944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_16
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 0
+        width: 94
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9f6215467fdcc0f0800000000000000
+      internalID: -1095254910299902050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_17
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 0
+        width: 17
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81545340913b49950800000000000000
+      internalID: 6454981085954917656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_18
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 0
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfb230cc7e8811d80800000000000000
+      internalID: -8281687710616048643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_19
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 0
+        width: 35
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f61fdbdcb7737d520800000000000000
+      internalID: 2726709104268407151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_20
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 0
+        width: 134
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34d72c5b9db2cb6e0800000000000000
+      internalID: -1820531935307203261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_21
+      rect:
+        serializedVersion: 2
+        x: 974
+        y: 3
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee27e50081dda0330800000000000000
+      internalID: 3677995140856574702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_22
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 4
+        width: 19
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb08257864594e8c0800000000000000
+      internalID: -3970884841283354437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_23
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 0
+        width: 40
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd2d5bca7e69159d0800000000000000
+      internalID: -2787280772586417443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Health Bar filled_24
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 1
+        width: 42
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abef9745a3a90f8e0800000000000000
+      internalID: -1661658687183651142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Player Health Bar filled_0: 37476903237469884
+      Player Health Bar filled_1: -8371376843396353472
+      Player Health Bar filled_10: 8131714725925300126
+      Player Health Bar filled_11: 2499459413349978507
+      Player Health Bar filled_12: -2968810047150879238
+      Player Health Bar filled_13: 7467260843053580013
+      Player Health Bar filled_14: -4907625307441374491
+      Player Health Bar filled_15: -6210621780385963944
+      Player Health Bar filled_16: -1095254910299902050
+      Player Health Bar filled_17: 6454981085954917656
+      Player Health Bar filled_18: -8281687710616048643
+      Player Health Bar filled_19: 2726709104268407151
+      Player Health Bar filled_2: -7273995772090722395
+      Player Health Bar filled_20: -1820531935307203261
+      Player Health Bar filled_21: 3677995140856574702
+      Player Health Bar filled_22: -3970884841283354437
+      Player Health Bar filled_23: -2787280772586417443
+      Player Health Bar filled_24: -1661658687183651142
+      Player Health Bar filled_3: 7132305863342835313
+      Player Health Bar filled_4: -5189004737223382809
+      Player Health Bar filled_5: 7290195952080162192
+      Player Health Bar filled_6: -32603766686532976
+      Player Health Bar filled_7: 6567069143473590482
+      Player Health Bar filled_8: -3585059837958988050
+      Player Health Bar filled_9: -8956426273476498374
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
