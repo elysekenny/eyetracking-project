@@ -29,6 +29,9 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private GameObject PlayerHealthBarTween;
     private GameObject EnemyHealthBar;
     private GameObject EnemyHealthBarTween;
+    private Image SpecialActionButton;
+    private Image SpecialActionButtonShadow;
+
     private NewEnemy CurrentEnemyData;
 
     // Active player data 🤑🤑🤑
@@ -67,6 +70,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     // Data tracking (health and other values that could change in combat) 😵‍💫😵‍💫😵‍💫
     private int PlayerHealth;
     private int EnemyHealth;
+
+    private GameObject SpawnedWeakpoint;
 
     private float TimerFilledVal;
 
@@ -120,6 +125,19 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             if(PlayerDefend.WasPressedThisFrame())   {PlayerTryDefend();}
             if(PlayerSpecial.WasPressedThisFrame())  {PlayerTrySpecial();}
 
+            if (WeakpointHighlighted)
+            {
+                //special button highlighted
+                SpecialActionButtonShadow.color  = new Color(101, 101, 101, 255);
+                SpecialActionButton.color        = new Color(255, 255, 255, 255);
+            }
+            else
+            {
+                // grey out the special button
+                SpecialActionButtonShadow.color  = new Color(101, 101, 101, 101);
+                SpecialActionButton.color        = new Color(0, 0, 0, 150);
+            }
+
             TimeRemaining -= Time.deltaTime;
             // TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
             TimerBar.transform.position = new Vector3(TimerBar.transform.position.x + Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.position.y, TimerBar.transform.position.z);
@@ -172,7 +190,12 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         MaskRef.GetComponent<SpriteMask>().sprite    = CurrentEnemyData.HudIcon;
         MaskRef.transform.localScale                 = CurrentEnemyData.SpriteMaskDimensions;
+        
+        Color colour     = CurrentEnemyData.SpriteColour;
+        colour.a         = 0.4f;
 
+        MaskRef.gameObject.transform.Find("OVERLAY").GetComponent<SpriteRenderer>().sprite   = CurrentEnemyData.HudIcon;
+        MaskRef.gameObject.transform.Find("OVERLAY").GetComponent<SpriteRenderer>().color    = colour;
     }
 
     private void SetupUIAttributes()
@@ -187,6 +210,10 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         // Enemy health assets
         EnemyHealthBar        = CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("EnemyHealthBar").gameObject;
         EnemyHealthBarTween   = CombatUI.gameObject.transform.Find("EnemyHealth").gameObject.transform.Find("EnemyHealthAnimation").gameObject;
+
+        //Special button (eye tracking weakpoints)
+        SpecialActionButton          = BattleBox.gameObject.transform.Find("PlayerButtons").gameObject.transform.Find("Special").gameObject.GetComponent<Image>();
+        SpecialActionButtonShadow    = BattleBox.gameObject.transform.Find("PlayerButtons").gameObject.transform.Find("SpShadow").gameObject.GetComponent<Image>();
     }
 
     // can be used for player or enemy just needs to pass in the correct ui elements based on use case
@@ -217,6 +244,14 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         HealthBarToTween.transform.localScale    = new Vector3(1,  HealthBarToTween.transform.localScale.y + (AnimDirection * Time.deltaTime), 1);
         HealthBarToTween.transform.position      = new Vector3(HealthBarToTween.transform.position.x, HealthBarToTween.transform.position.y + (AnimDirection * Time.deltaTime), HealthBarToTween.transform.position.z);
     }
+
+    // WEAKPOINT STUFF
+    public void SetWeakpointVisibility(bool _arg){WeakpointHighlighted = _arg;} // set from the collisions in the mask
+    private void SpawnWeakpoint()
+    {
+        
+    }
+
 
     private void PlayerTurnStart()
     {
@@ -368,6 +403,14 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         TimeRemaining                    = CurrentEnemyData.TurnDuration; // RESET THE TIMER FOR THE NEXT PLAYER TURN
         // TimerBar.transform.localScale    = new Vector3(TimerFilledVal, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
         TimerBar.transform.position      = new Vector3(0, TimerBar.transform.position.y, TimerBar.transform.position.z);
+
+        //Remove weakpoint and reset at end of turn
+        if(SpawnedWeakpoint)
+        {
+            Destroy(SpawnedWeakpoint);
+            SpawnedWeakpoint = null;
+        }
+        WeakpointHighlighted = false;
 
         BattleBox.transform.Find("PlayerButtons").gameObject.SetActive(false);
         BattleBox.transform.Find("TurnResults").gameObject.SetActive(true);
