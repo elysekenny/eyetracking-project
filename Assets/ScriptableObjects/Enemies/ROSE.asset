@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ROSE
   m_EditorClassIdentifier: 
   DisplayName: The Red Rose
-  HudIcon: {fileID: 0}
+  HudIcon: {fileID: -5985687153658988600, guid: 2c41a699c4133d94594f113258c02a1e, type: 3}
   WorldReference: {fileID: 3960920397721712598, guid: 1672ddba526c775419239a35dba827b3, type: 3}
   SpriteColour: {r: 1, g: 0, b: 0, a: 1}
   Health: 100
@@ -25,14 +25,14 @@ MonoBehaviour:
   SpecialValue: 15
   SpecialChance: 15
   CriticalChance: 5
-  TurnDuration: 3
+  TurnDuration: 3.25
   FullSprite: {fileID: 5614637178320563061, guid: b8f0e954b5b9ff847a8a33c484a55353, type: 3}
   OverrideSpriteScale: {x: 35, y: 35, z: 1}
   SpriteMaskDimensions: {x: 12, y: 12, z: 1}
   WeakpointMaskColour: {r: 1, g: 0, b: 0, a: 1}
-  HealthBarMask: {fileID: 0}
-  HealthBarOutline: {fileID: 0}
-  BackingColour: {r: 0, g: 0, b: 0, a: 0}
-  TweenColour: {r: 0, g: 0, b: 0, a: 0}
-  FillColour: {r: 0, g: 0, b: 0, a: 0}
-  SecondaryTint: {r: 0, g: 0, b: 0, a: 0}
+  HealthBarMask: {fileID: 7629414359825460609, guid: f5a38c7514453c749999c205d673f883, type: 3}
+  HealthBarOutline: {fileID: -2260805351015759539, guid: c3c454e2a1962e842ab5289ac1eff09f, type: 3}
+  BackingColour: {r: 0.3882353, g: 0, b: 0.07450981, a: 1}
+  TweenColour: {r: 1, g: 0.61960787, b: 0.62352943, a: 1}
+  FillColour: {r: 1, g: 0.03529412, b: 0, a: 1}
+  SecondaryTint: {r: 1, g: 0.5803922, b: 0.85490197, a: 0.4509804}

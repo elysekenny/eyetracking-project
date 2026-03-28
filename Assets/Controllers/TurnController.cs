@@ -8,6 +8,7 @@ using System.Diagnostics.Tracing;
 using UnityEngine.InputSystem;
 using System.Collections;
 using Unity.Mathematics;
+using UnityEditor;
 
 /*
 
@@ -24,6 +25,9 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     public GameObject CombatUI;
     public GameObject BattleBox;
     public GameObject MaskRef;
+    public GameObject WeakpointPrefab;
+    public GameObject WeakpointSpawnZone;
+
     private GameObject TimerBar;
     private GameObject PlayerHealthBar;
     private GameObject PlayerHealthBarTween;
@@ -128,14 +132,14 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             if (WeakpointHighlighted)
             {
                 //special button highlighted
-                SpecialActionButtonShadow.color  = new Color(101, 101, 101, 255);
-                SpecialActionButton.color        = new Color(255, 255, 255, 255);
+                SpecialActionButtonShadow.color  = new Color(0.4f, 0.4f, 0.4f, 1);
+                SpecialActionButton.color        = new Color(1, 1, 1, 1);
             }
             else
             {
                 // grey out the special button
-                SpecialActionButtonShadow.color  = new Color(101, 101, 101, 101);
-                SpecialActionButton.color        = new Color(0, 0, 0, 150);
+                SpecialActionButtonShadow.color  = new Color(0.4f, 0.4f, 0.4f, 0.4f);
+                SpecialActionButton.color        = new Color(0, 0, 0, 0.5f);
             }
 
             TimeRemaining -= Time.deltaTime;
@@ -249,7 +253,14 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     public void SetWeakpointVisibility(bool _arg){WeakpointHighlighted = _arg;} // set from the collisions in the mask
     private void SpawnWeakpoint()
     {
+        // get a random point in the bounds of the weakpoint bounds, check if it is overlapping with the enemy sprite too and create a new weakpoint prefab instance
+        Bounds SpawnRegion = WeakpointSpawnZone.GetComponent<BoxCollider2D>().bounds;
+        Vector3 spawnPosition = new Vector3(
+            UnityEngine.Random.Range(SpawnRegion.min.x, SpawnRegion.max.x),
+            UnityEngine.Random.Range(SpawnRegion.min.y, SpawnRegion.max.y),
+            0);
         
+        SpawnedWeakpoint = Instantiate(WeakpointPrefab, spawnPosition, new Quaternion());
     }
 
 
@@ -267,6 +278,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         BattleBox.transform.Find("PlayerButtons").gameObject.SetActive(true);
         BattleBox.transform.Find("TurnResults").gameObject.SetActive(false);
         BattleBox.transform.Find("TurnResults").gameObject.transform.Find("TextOutput").GetComponent<TextMeshProUGUI>().text = "";
+
+        SpawnWeakpoint();
 
         // start the round timer
         GameState        = COMBAT_STATES.PLAYER_TURN; //starts the timer and lets input be read in the update loop

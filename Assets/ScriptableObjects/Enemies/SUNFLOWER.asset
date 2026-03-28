@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SUNFLOWER
   m_EditorClassIdentifier: 
   DisplayName: Sinflower
-  HudIcon: {fileID: 0}
+  HudIcon: {fileID: -6016429036545687985, guid: c04aac7eda4081647bed31b44d480734, type: 3}
   WorldReference: {fileID: 3960920397721712598, guid: c9b1228277e988042802e4181d6100a4, type: 3}
   SpriteColour: {r: 1, g: 0.7971463, b: 0, a: 1}
   Health: 50
