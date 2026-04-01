@@ -8,6 +8,7 @@ using System.Diagnostics.Tracing;
 using UnityEngine.InputSystem;
 using System.Collections;
 using Unity.Mathematics;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 
 /*
@@ -473,6 +474,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             Debug.Log(">> THE PLAYER IS DEAD <<");
 
             // load the ui screen scene with the game state of LOSE passed in.
+            PlayerPrefs.SetString("Gamestate", "Lose");
+            SceneManager.LoadScene("UI Screens");
         }
         else
         {
@@ -494,6 +497,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             PlayerPrefs.SetInt("PlayerHealth", PlayerHealth);
 
             // load the environment scene with in world reference to be destroyed so the player cannot fight it again
+            // TODO: destroy in world enemies
+            SceneManager.LoadScene("Environment1");
         }
         else
         {

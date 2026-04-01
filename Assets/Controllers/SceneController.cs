@@ -62,6 +62,8 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
             //The player has won. Win screen!
             // Maybe I make a menu scene? and i load this with win/ lose?
             Debug.Log("Win condition!");
+            PlayerPrefs.SetString("Gamestate", "Win");
+            SceneManager.LoadScene("UI Screens");
         }
     }
 
