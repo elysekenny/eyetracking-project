@@ -30,7 +30,7 @@ MonoBehaviour:
   TurnDuration: 3.25
   FullSprite: {fileID: 5614637178320563061, guid: b8f0e954b5b9ff847a8a33c484a55353, type: 3}
   OverrideSpriteScale: {x: 35, y: 35, z: 1}
-  SpriteMaskDimensions: {x: 12, y: 12, z: 1}
+  SpriteMaskDimensions: {x: 18, y: 18, z: 1}
   WeakpointMaskColour: {r: 1, g: 0, b: 0, a: 1}
   HealthBarMask: {fileID: 7629414359825460609, guid: f5a38c7514453c749999c205d673f883, type: 3}
   HealthBarOutline: {fileID: -2260805351015759539, guid: c3c454e2a1962e842ab5289ac1eff09f, type: 3}

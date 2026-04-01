@@ -505,4 +505,6 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             EnemyTakeTurn();
         }
     }
+
+    public void SetWeakpointHighlight(bool _value){WeakpointHighlighted = _value;}
 }

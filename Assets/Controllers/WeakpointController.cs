@@ -11,13 +11,13 @@ public class WeakpointController : BeamEyeTrackerMonoBehaviour
 {
     public GameObject MaskReference;
     public bool IN_DEBUG = false;
+    public GameObject _SceneManager;
+    private TurnController _CONTROLLER;
 
     //PRIVATE ATTRIBUTES
-    private NewColour CurrentMaskData;
-
     void Start()
     {
-        
+        _CONTROLLER = _SceneManager.GetComponent<TurnController>();
     }
 
     // map the position of the mask to the position of the eye tracker
@@ -55,35 +55,18 @@ public class WeakpointController : BeamEyeTrackerMonoBehaviour
         MaskReference.transform.position = Vector3.Lerp(MaskReference.transform.position, NewPos, 0.5f);
     }
 
-    private void UpdateUINewMask()
-    {
-        // Set the colour of features to the colour of the mask
-     
-    }
 
-    public void SetActiveMaskData(NewColour MaskData)
-    {
-        CurrentMaskData = MaskData;
-        
-        //SET THE COLOUR AND LOAD THE MASK DATA
-        // Update any ui changes based on the colour mask changing
-        UpdateUINewMask();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(!CurrentMaskData){return;}
-        GameObject Object = collision.gameObject;
-       
+    {     
        // check if the weakpoint is hovered, if it is then enable the special combat action
+       _CONTROLLER.SetWeakpointHighlight(true);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(!CurrentMaskData){return;}
-
-        GameObject Object = collision.gameObject;               
-       
        // disable the weakpoint option
+        _CONTROLLER.SetWeakpointHighlight(false);
+
     }
 }
