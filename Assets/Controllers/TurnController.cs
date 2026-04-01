@@ -77,8 +77,6 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
     private GameObject SpawnedWeakpoint;
 
-    private float TimerFilledVal;
-
     private GameObject HealthBarToTween;
     private float TargetNewSize;
     private float TargetNewPos;
@@ -101,7 +99,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         // Set and init the starting health attributes
         // (player health bar needs to be initialised at the right amount as its passed in each combat)
-        PlayerHealth     = PlayerMaxHealth; // debug value
+        PlayerHealth     = PlayerPrefs.GetInt("PlayerHealth", PlayerMaxHealth); // write the player health at the end of combat
         EnemyHealth      = CurrentEnemyData.Health;
 
         Debug.Log("Starting combat with " + CurrentEnemyData.DisplayName);
@@ -143,8 +141,10 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             }
 
             TimeRemaining -= Time.deltaTime;
-            // TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
-            TimerBar.transform.position = new Vector3(TimerBar.transform.position.x + Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.position.y, TimerBar.transform.position.z);
+            // TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);T
+            // timer bar move between 0 and 880 in a turn on the x axis
+            float TimerIncrement = CurrentEnemyData.TurnDuration / 880 * Time.deltaTime;
+            TimerBar.transform.position = new Vector3(TimerBar.transform.position.x + TimerIncrement, TimerBar.transform.position.y, TimerBar.transform.position.z);
 
             if(TimeRemaining <= 0f)
             {
@@ -196,7 +196,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         MaskRef.transform.localScale                 = CurrentEnemyData.SpriteMaskDimensions;
         
         Color colour     = CurrentEnemyData.SpriteColour;
-        colour.a         = 0.4f;
+        colour.a         = 0.3f;
 
         MaskRef.gameObject.transform.Find("OVERLAY").GetComponent<SpriteRenderer>().sprite   = CurrentEnemyData.HudIcon;
         MaskRef.gameObject.transform.Find("OVERLAY").GetComponent<SpriteRenderer>().color    = colour;
@@ -205,7 +205,6 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private void SetupUIAttributes()
     {
         TimerBar              = CombatUI.gameObject.transform.Find("RoundTimer").gameObject.transform.Find("TimerBar").gameObject;
-        TimerFilledVal        = TimerBar.transform.localScale.x;
 
         // Player health assets
         PlayerHealthBar       = CombatUI.gameObject.transform.Find("PlayerHealth").gameObject.transform.Find("PlayerHealthBar").gameObject;
@@ -472,6 +471,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         if(PlayerHealth <= 0)
         {
             Debug.Log(">> THE PLAYER IS DEAD <<");
+
+            // load the ui screen scene with the game state of LOSE passed in.
         }
         else
         {
@@ -485,6 +486,14 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         if(EnemyHealth <= 0)
         {
             Debug.Log(">> THE ENEMY IS DEAD <<");
+            string SaveDataName  = CurrentEnemyData.EnemyID + "_REMAINING";
+            int previousValue    = (int)Convert.ToInt64(PlayerPrefs.GetString(SaveDataName, CurrentEnemyData.TotalInWorld.ToString()));
+            string newValue      = (previousValue - 1).ToString();
+
+            PlayerPrefs.SetString(SaveDataName, newValue);
+            PlayerPrefs.SetInt("PlayerHealth", PlayerHealth);
+
+            // load the environment scene with in world reference to be destroyed so the player cannot fight it again
         }
         else
         {

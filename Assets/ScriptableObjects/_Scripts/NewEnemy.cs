@@ -5,12 +5,14 @@ using UnityEngine;
 public class NewEnemy : ScriptableObject
 {
     [Header("Information")]
+    public String EnemyID;
     public String DisplayName;
     public Sprite HudIcon;
 
     [Header("World Data")]
     public GameObject WorldReference;
     public Color SpriteColour;
+    public int TotalInWorld;
 
     [Header("Combat Data")]
     public int Health;

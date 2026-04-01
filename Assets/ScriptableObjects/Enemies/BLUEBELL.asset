@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44897a6c4b492446bdb0e7c69df7a75, type: 3}
   m_Name: BLUEBELL
   m_EditorClassIdentifier: 
+  EnemyID: BLUEBELL
   DisplayName: Blue Bells
   HudIcon: {fileID: -2777523661082708639, guid: 257690d17d42b354eaa1974372a37fa0, type: 3}
   WorldReference: {fileID: 3960920397721712598, guid: bd8fecb19eb88a1468dbf3a8ed393fa5, type: 3}
   SpriteColour: {r: 0, g: 0.7838819, b: 1, a: 1}
+  TotalInWorld: 1
   Health: 200
   AttackName: Toll the Dead
   BaseDamage: 5

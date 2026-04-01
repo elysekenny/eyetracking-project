@@ -4,18 +4,22 @@ using Eyeware.BeamEyeTracker.Unity;
 using Eyeware.BeamEyeTracker;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System;
+
+// TODO- game start popup. just a window that says how to play and the premise of how to win/ lose
 
 public class SceneController : BeamEyeTrackerMonoBehaviour
 {
 
     public GameObject MaskReference;
+    public GameObject DataPanel;
 
     public NewColour BlueData;
     public NewColour RedData;
     public NewColour YellowData;
 
     private MaskController _MASKCONTROLLER;
-    private Vector3 CameraVelocity = new Vector3(0, 0, 2);
 
 
     // READS THE PLAYER INPUTS
@@ -35,6 +39,30 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
 
         // REFERENCES
         _MASKCONTROLLER = MaskReference.GetComponent<MaskController>();
+
+        // set the area report to the saved data
+        TextMeshProUGUI BluebellText         = DataPanel.gameObject.transform.Find("Bluebells Remaining")           .gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI BluebellTextShadow   = DataPanel.gameObject.transform.Find("Bluebells Remaining Shadow")    .gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI RoseText             = DataPanel.gameObject.transform.Find("Roses Remaining")               .gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI RoseTextShadow       = DataPanel.gameObject.transform.Find("Roses Remaining Shadow")        .gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI SunflowerText        = DataPanel.gameObject.transform.Find("Sunflower Remaining")           .gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI SunflowerTextShadow  = DataPanel.gameObject.transform.Find("Sunflower Remaining Shadow")    .gameObject.GetComponent<TextMeshProUGUI>();
+
+        BluebellText.text         = PlayerPrefs.GetString("BLUEBELL_REMAINING", "1");
+        BluebellTextShadow.text   = PlayerPrefs.GetString("BLUEBELL_REMAINING", "1");
+
+        RoseText.text             = PlayerPrefs.GetString("ROSE_REMAINING", "2");
+        RoseTextShadow.text       = PlayerPrefs.GetString("ROSE_REMAINING", "2");
+
+        SunflowerText.text        = PlayerPrefs.GetString("SUNFLOWER_REMAINING", "2");
+        SunflowerTextShadow.text  = PlayerPrefs.GetString("SUNFLOWER_REMAINING", "2");
+
+        if(PlayerPrefs.GetString("SUNFLOWER_REMAINING", "2") == "0" && PlayerPrefs.GetString("ROSE_REMAINING", "2") == "0" && PlayerPrefs.GetString("BLUEBELL_REMAINING", "1") == "0")
+        {
+            //The player has won. Win screen!
+            // Maybe I make a menu scene? and i load this with win/ lose?
+            Debug.Log("Win condition!");
+        }
     }
 
     public void Update()

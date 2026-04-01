@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44897a6c4b492446bdb0e7c69df7a75, type: 3}
   m_Name: ROSE
   m_EditorClassIdentifier: 
+  EnemyID: ROSE
   DisplayName: The Red Rose
   HudIcon: {fileID: -5985687153658988600, guid: 2c41a699c4133d94594f113258c02a1e, type: 3}
   WorldReference: {fileID: 3960920397721712598, guid: 1672ddba526c775419239a35dba827b3, type: 3}
   SpriteColour: {r: 1, g: 0, b: 0, a: 1}
+  TotalInWorld: 2
   Health: 100
   AttackName: Thorn Whip
   BaseDamage: 6

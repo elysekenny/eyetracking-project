@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44897a6c4b492446bdb0e7c69df7a75, type: 3}
   m_Name: SUNFLOWER
   m_EditorClassIdentifier: 
+  EnemyID: SUNFLOWER
   DisplayName: Sinflower
   HudIcon: {fileID: -6016429036545687985, guid: c04aac7eda4081647bed31b44d480734, type: 3}
   WorldReference: {fileID: 3960920397721712598, guid: c9b1228277e988042802e4181d6100a4, type: 3}
   SpriteColour: {r: 1, g: 0.7971463, b: 0, a: 1}
+  TotalInWorld: 2
   Health: 50
   AttackName: Sapping Sting
   BaseDamage: 4
