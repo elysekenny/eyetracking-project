@@ -10,6 +10,7 @@ public class UiController : MonoBehaviour
     public GameObject GameWinScreen;
 
     public enum ButtonFunc {START, REPLAY, QUIT}
+    public enum ScreenTypes {START, END}
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
