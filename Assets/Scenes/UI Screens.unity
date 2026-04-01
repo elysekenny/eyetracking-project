@@ -307,6 +307,7 @@ GameObject:
   - component: {fileID: 51146936}
   - component: {fileID: 51146937}
   - component: {fileID: 51146938}
+  - component: {fileID: 51146939}
   m_Layer: 5
   m_Name: Replay Mask
   m_TagString: Untagged
@@ -401,6 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Function: 1
+  UiManager: {fileID: 458350200}
 --- !u!61 &51146938
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -447,6 +449,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.0000001, y: 1.0000001}
   m_EdgeRadius: 0
+--- !u!50 &51146939
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51146934}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &83898412
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +579,7 @@ GameObject:
   - component: {fileID: 164496775}
   - component: {fileID: 164496776}
   - component: {fileID: 164496777}
+  - component: {fileID: 164496778}
   m_Layer: 5
   m_Name: Yellow Mask
   m_TagString: Untagged
@@ -690,6 +720,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Function: 0
+  UiManager: {fileID: 458350200}
+--- !u!50 &164496778
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164496773}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &179281127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,6 +1916,7 @@ GameObject:
   - component: {fileID: 404445513}
   - component: {fileID: 404445514}
   - component: {fileID: 404445515}
+  - component: {fileID: 404445516}
   m_Layer: 5
   m_Name: Red Mask
   m_TagString: Untagged
@@ -1998,6 +2057,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Function: 2
+  UiManager: {fileID: 458350200}
+--- !u!50 &404445516
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404445511}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &407422791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2941,6 +3028,7 @@ GameObject:
   - component: {fileID: 493260404}
   - component: {fileID: 493260405}
   - component: {fileID: 493260406}
+  - component: {fileID: 493260407}
   m_Layer: 5
   m_Name: QuitMask
   m_TagString: Untagged
@@ -3035,6 +3123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Function: 2
+  UiManager: {fileID: 458350200}
 --- !u!61 &493260406
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3081,6 +3170,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.0000001, y: 1.0000001}
   m_EdgeRadius: 0
+--- !u!50 &493260407
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493260402}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &501278170
 GameObject:
   m_ObjectHideFlags: 0
@@ -4469,6 +4585,7 @@ GameObject:
   - component: {fileID: 868379468}
   - component: {fileID: 868379469}
   - component: {fileID: 868379470}
+  - component: {fileID: 868379471}
   m_Layer: 5
   m_Name: QuitMask
   m_TagString: Untagged
@@ -4563,6 +4680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Function: 2
+  UiManager: {fileID: 458350200}
 --- !u!61 &868379470
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4609,6 +4727,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.0000001, y: 1.0000001}
   m_EdgeRadius: 0
+--- !u!50 &868379471
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 868379466}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &883368790
 GameObject:
   m_ObjectHideFlags: 0
@@ -5972,6 +6117,7 @@ GameObject:
   - component: {fileID: 1122856939}
   - component: {fileID: 1122856940}
   - component: {fileID: 1122856941}
+  - component: {fileID: 1122856942}
   m_Layer: 5
   m_Name: Replay Mask
   m_TagString: Untagged
@@ -6066,6 +6212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Function: 1
+  UiManager: {fileID: 458350200}
 --- !u!61 &1122856941
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6112,6 +6259,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.0000001, y: 1.0000001}
   m_EdgeRadius: 0
+--- !u!50 &1122856942
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122856937}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1160578702
 GameObject:
   m_ObjectHideFlags: 0
@@ -8385,7 +8559,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -386, z: 0}
-  m_LocalScale: {x: 200, y: 200, z: 1}
+  m_LocalScale: {x: 300, y: 300, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 458350202}
@@ -8425,7 +8599,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.25
 --- !u!114 &1861878638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8438,6 +8612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff87435515bdcb4c808323e8b386217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IN_DEBUG: 1
 --- !u!212 &1861878639
 SpriteRenderer:
   m_ObjectHideFlags: 0
