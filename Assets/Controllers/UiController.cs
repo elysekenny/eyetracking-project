@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UiController : MonoBehaviour
 {
@@ -53,15 +54,19 @@ public class UiController : MonoBehaviour
         switch(function)
         {
             case ButtonFunc.START:
-                Debug.Log("Start game");
+               // player prefs set first load in to true to trigger a popup
+                SceneManager.LoadScene("Environment1");
                 break;
 
             case ButtonFunc.REPLAY:
-                Debug.Log("Replay game");
+                // clear all the player refs and reset the scene in environment 1 with all the enemies
+                SceneManager.LoadScene("Environment1");
                 break;
 
             case ButtonFunc.QUIT:
-            Debug.Log("Quit game");
+                Debug.Log("Quit game");
+                UnityEditor.EditorApplication.isPlaying = false;
+                Application.Quit();
                 break;
         }
     }
