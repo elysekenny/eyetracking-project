@@ -36,7 +36,6 @@ public class UiController : MonoBehaviour
     private void MainMenu()
     {
         StartScreen.SetActive(true);
-
     }
 
     private void CompleteScreen(GameObject EndScreen)

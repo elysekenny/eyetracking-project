@@ -24,10 +24,16 @@ public class ButtonScript : MonoBehaviour
     public Sprite BUTTON_HOVER_END;
 
     public GameObject BUTTON_PROMPT;
+    public GameObject FLOWER_VISUAL;
 
 
     [Header("End Screen")]
-    public string TEMP;
+    public GameObject BACKGROUND_GAMEOVER;
+    public Color BG_HOVERSTART_COLOUR;
+    public Color BG_HOVEREND_COLOUR;
+    public GameObject HIGHLIGHT;
+    public GameObject BUTTON_PROMPT_GAMEOVER;
+    public GameObject FLOWER_VISUAL_GAMEOVER;
 
 
     private UiController _CONTROLLER;
@@ -57,6 +63,10 @@ public class ButtonScript : MonoBehaviour
             case UiController.ScreenTypes.START:
                 HoverStart_START();
                 break;
+
+            case UiController.ScreenTypes.END:
+                HoverStart_END();
+                break;
         }
     }
 
@@ -69,6 +79,10 @@ public class ButtonScript : MonoBehaviour
             case UiController.ScreenTypes.START:
                 HoverEnd_START();
                 break;
+
+            case UiController.ScreenTypes.END:
+                HoverEnd_END();
+                break;
         }
     }
 
@@ -77,6 +91,7 @@ public class ButtonScript : MonoBehaviour
         BACKGROUND.GetComponent<SpriteRenderer>().sprite     = BG_HOVER_START;
         BUTTON.GetComponent<SpriteRenderer>().sprite         = BUTTON_HOVER_START;
         BUTTON_PROMPT.SetActive(true);
+        FLOWER_VISUAL.SetActive(true);
     }
 
     private void HoverEnd_START()
@@ -84,5 +99,23 @@ public class ButtonScript : MonoBehaviour
         BACKGROUND.GetComponent<SpriteRenderer>().sprite     = BG_HOVER_END;
         BUTTON.GetComponent<SpriteRenderer>().sprite         = BUTTON_HOVER_END;
         BUTTON_PROMPT.SetActive(false);
+        FLOWER_VISUAL.SetActive(false);
+    }
+
+    private void HoverStart_END()
+    {
+        BACKGROUND_GAMEOVER.GetComponent<SpriteRenderer>().color = BG_HOVERSTART_COLOUR;
+        BUTTON_PROMPT_GAMEOVER.SetActive(true);
+        FLOWER_VISUAL_GAMEOVER.SetActive(true);
+        HIGHLIGHT.SetActive(true);
+
+    }
+
+    private void HoverEnd_END()
+    {
+        BACKGROUND_GAMEOVER.GetComponent<SpriteRenderer>().color = BG_HOVEREND_COLOUR;
+        BUTTON_PROMPT_GAMEOVER.SetActive(false);
+        HIGHLIGHT.SetActive(false);
+        FLOWER_VISUAL_GAMEOVER.SetActive(false);
     }
 }

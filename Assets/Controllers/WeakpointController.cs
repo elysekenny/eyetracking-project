@@ -67,6 +67,5 @@ public class WeakpointController : BeamEyeTrackerMonoBehaviour
     {
        // disable the weakpoint option
         _CONTROLLER.SetWeakpointHighlight(false);
-
     }
 }
