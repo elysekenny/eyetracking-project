@@ -12,7 +12,7 @@ public class UiController : MonoBehaviour
     public enum ButtonFunc {START, REPLAY, QUIT}
     public enum ScreenTypes {START, END}
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
         // activate the correct screen based on Player prefs- either Win, Lose, Start
         string GetScreen = PlayerPrefs.GetString("Gamestate", "Start");
@@ -49,10 +49,11 @@ public class UiController : MonoBehaviour
         PlayerPrefs.SetInt("PlayerHealth", 300);
         PlayerPrefs.SetString("SUNFLOWER_REMAINING", "2");
         PlayerPrefs.SetString("ROSE_REMAINING", "2");
-        PlayerPrefs.GetString("BLUEBELL_REMAINING", "1");
+        PlayerPrefs.SetString("BLUEBELL_REMAINING", "1");
         PlayerPrefs.SetInt("TotalEnemies", 5);
         PlayerPrefs.SetString("EnemyDefeated", "None");
         PlayerPrefs.SetString("GameState", "Start");
+        PlayerPrefs.SetString("CurrentEnemy", "None");
     }
 
     public void OnButtonPressed(ButtonFunc function)

@@ -37,6 +37,8 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
 
     public void Start()
     {
+        PlayerPrefs.SetString("Gamestate", "Start"); 
+
         // USER INPUTS
         BlueMask     =  InputSystem.actions.FindAction("EquipBlue");
         RedMask      =  InputSystem.actions.FindAction("EquipRed");

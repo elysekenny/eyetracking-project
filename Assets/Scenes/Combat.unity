@@ -4090,6 +4090,9 @@ MonoBehaviour:
   MaskRef: {fileID: 112565980}
   WeakpointPrefab: {fileID: 6830411134839080489, guid: fe60da2ba2db6e64dbcd09933cd4b58e, type: 3}
   WeakpointSpawnZone: {fileID: 732406853}
+  ROSE: {fileID: 11400000, guid: 8b3dd1ba02109934e93704d7b3cc71ae, type: 2}
+  BLUEBELL: {fileID: 11400000, guid: 9a11b3e0c03ccfb4797326772c768b4f, type: 2}
+  SUNFLOWER: {fileID: 11400000, guid: b164ea8cbaf1b184e8ee899138f6c20d, type: 2}
 --- !u!114 &1573216480
 MonoBehaviour:
   m_ObjectHideFlags: 0

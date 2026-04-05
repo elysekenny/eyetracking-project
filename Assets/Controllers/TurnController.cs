@@ -19,8 +19,8 @@ using UnityEditor;
 
 public class TurnController :  BeamEyeTrackerMonoBehaviour
 {
-    private GameObject EnemyLoaded;
-    private LoadEnemy EnemyLoadScript;
+    // private GameObject EnemyLoaded;
+    // private LoadEnemy EnemyLoadScript;
 
 
     public GameObject CombatUI;
@@ -28,6 +28,11 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     public GameObject MaskRef;
     public GameObject WeakpointPrefab;
     public GameObject WeakpointSpawnZone;
+
+    //EnemyData
+    public NewEnemy ROSE;
+    public NewEnemy BLUEBELL;
+    public NewEnemy SUNFLOWER;
 
     private GameObject TimerBar;
     private GameObject PlayerHealthBar;
@@ -38,7 +43,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private Image SpecialActionButtonShadow;
 
     private NewEnemy CurrentEnemyData;
-    private String EnemyWorldID;
+    private string EnemyWorldID;
 
     // Active player data 🤑🤑🤑
     private int PlayerMaxHealth          = 200;
@@ -94,11 +99,11 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
     public void Start()
     {
-        // Get the enemy loaded
-        EnemyLoaded          = GameObject.Find("EnemyData");
-        EnemyLoadScript      = EnemyLoaded.GetComponent<LoadEnemy>();
-        CurrentEnemyData     = EnemyLoadScript.EnemyToLoad;
-        EnemyWorldID         = EnemyLoadScript.EnemyWorldID;
+        EnemyWorldID = PlayerPrefs.GetString("CurrentEnemy");
+
+        if(EnemyWorldID.Contains("SUNFLOWER"))  {CurrentEnemyData = SUNFLOWER;}
+        if(EnemyWorldID.Contains("ROSE"))       {CurrentEnemyData = ROSE;}
+        if(EnemyWorldID.Contains("BLUEBELL"))   {CurrentEnemyData = BLUEBELL;}
 
         // Set and init the starting health attributes
         // (player health bar needs to be initialised at the right amount as its passed in each combat)

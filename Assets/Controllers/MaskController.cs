@@ -21,12 +21,6 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
     //PRIVATE ATTRIBUTES
     private NewColour CurrentMaskData;
     private List<GameObject> MaskedObjects = new List<GameObject>();
-    private LoadEnemy EnemyDataLoader;
-
-    void Start()
-    {
-        EnemyDataLoader =  EnemyData.GetComponent<LoadEnemy>();
-    }
 
     // map the position of the mask to the position of the eye tracker
     void Update()
@@ -113,11 +107,8 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
             foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
             {
                 if(Object.name.Contains(enemy.EnemyID))
-                {
-                    if(EnemyDataLoader.EnemyToLoad){Debug.Log(EnemyDataLoader.EnemyToLoad.name);}
-                
-                    EnemyDataLoader.EnemyToLoad      = enemy;
-                    EnemyDataLoader.EnemyWorldID     = Object.name;
+                {                
+                    PlayerPrefs.SetString("CurrentEnemy", Object.name);
                     SceneManager.LoadScene("Combat");
                 }
             }
