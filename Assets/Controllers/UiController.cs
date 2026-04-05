@@ -56,6 +56,12 @@ public class UiController : MonoBehaviour
             case ButtonFunc.START:
                // player prefs set first load in to true to trigger a popup
                 PlayerPrefs.SetString("LoadCase", "START");
+
+                // initialise all the player prefs
+                PlayerPrefs.SetInt("PlayerHealth", 300);
+                PlayerPrefs.SetString("SUNFLOWER_REMAINING", "2");
+                PlayerPrefs.SetString("ROSE_REMAINING", "2");
+                PlayerPrefs.GetString("BLUEBELL_REMAINING", "1");
                 SceneManager.LoadScene("Environment1");
                 break;
 

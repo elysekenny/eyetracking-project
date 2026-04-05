@@ -99,9 +99,14 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
     public void Update()
     {
         // MASK CONTROLS
-        if(BlueMask.WasPressedThisFrame())      { _MASKCONTROLLER.SetActiveMaskData(BlueData);}
-        if(RedMask.WasPressedThisFrame())       { _MASKCONTROLLER.SetActiveMaskData(RedData);}
-        if(YellowMask.WasPressedThisFrame())    { _MASKCONTROLLER.SetActiveMaskData(YellowData);}
+        if(!HelpPrompt.activeSelf)
+        {
+            if(BlueMask.WasPressedThisFrame())      { _MASKCONTROLLER.SetActiveMaskData(BlueData);}
+            if(RedMask.WasPressedThisFrame())       { _MASKCONTROLLER.SetActiveMaskData(RedData);}
+            if(YellowMask.WasPressedThisFrame())    { _MASKCONTROLLER.SetActiveMaskData(YellowData);}
+        }
+
+
         if(Interact.WasPressedThisFrame())     
          { 
             if(HelpPrompt.activeSelf)
@@ -116,7 +121,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         }
 
         // CAMERA CONTROLS (mapped to eyetracking)
-        if(SceneManager.GetActiveScene().name != "Combat"){MapGazeDirection();}
+        if(!HelpPrompt.activeSelf){MapGazeDirection();}
     }
 
     private void MapHeadMovement()

@@ -18,7 +18,7 @@ MonoBehaviour:
   WorldReference: {fileID: 3960920397721712598, guid: 1672ddba526c775419239a35dba827b3, type: 3}
   SpriteColour: {r: 1, g: 0, b: 0, a: 1}
   TotalInWorld: 2
-  Health: 100
+  Health: 10
   AttackName: Thorn Whip
   BaseDamage: 6
   DamageVariance: 1

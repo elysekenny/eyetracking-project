@@ -14,6 +14,7 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
     public GameObject LocationShadow;
     public GameObject InteractPrompt;
     public GameObject EnemyData;
+    public GameObject HelpPrompt;
 
     public bool IN_DEBUG = false;
 

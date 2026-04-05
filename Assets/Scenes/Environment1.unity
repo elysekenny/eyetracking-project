@@ -7665,6 +7665,7 @@ MonoBehaviour:
   LocationShadow: {fileID: 1433430449}
   InteractPrompt: {fileID: 1537056709}
   EnemyData: {fileID: 1206917756}
+  HelpPrompt: {fileID: 533197747}
   IN_DEBUG: 1
 --- !u!1 &1862951515
 GameObject:
