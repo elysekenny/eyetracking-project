@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 
 // TODO- game start popup. just a window that says how to play and the premise of how to win/ lose
 
@@ -18,6 +19,10 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
     public NewColour BlueData;
     public NewColour RedData;
     public NewColour YellowData;
+
+    public GameObject HelpPrompt;
+    public GameObject OnScreenUI;
+    public GameObject[] AllEnemies;
 
     private MaskController _MASKCONTROLLER;
 
@@ -57,10 +62,34 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         SunflowerText.text        = PlayerPrefs.GetString("SUNFLOWER_REMAINING", "2");
         SunflowerTextShadow.text  = PlayerPrefs.GetString("SUNFLOWER_REMAINING", "2");
 
+        // check the load condition (if there is one)
+        if(PlayerPrefs.GetString("LoadCase") == "START")
+        {
+            HelpPrompt.SetActive(true);
+            OnScreenUI.SetActive(false);
+        }
+        else if(PlayerPrefs.GetString("LoadCase") == "REPLAY")
+        {
+            // reset all the enemies in the scene
+            foreach(GameObject _enemy in AllEnemies)
+            {
+                _enemy.SetActive(true);
+            }
+        }
+
+        // remove the defeated enemy from the world
+        string EnemyToRemove = PlayerPrefs.GetString("EnemyDefeated", "None");
+        for(int i = 0; i < AllEnemies.Length; i++)
+        {
+            if(AllEnemies[i].name == EnemyToRemove)
+            {
+                AllEnemies[i].SetActive(false);
+            }
+        }
+
+        // check for win condition
         if(PlayerPrefs.GetString("SUNFLOWER_REMAINING", "2") == "0" && PlayerPrefs.GetString("ROSE_REMAINING", "2") == "0" && PlayerPrefs.GetString("BLUEBELL_REMAINING", "1") == "0")
         {
-            //The player has won. Win screen!
-            // Maybe I make a menu scene? and i load this with win/ lose?
             Debug.Log("Win condition!");
             PlayerPrefs.SetString("Gamestate", "Win");
             SceneManager.LoadScene("UI Screens");
@@ -73,7 +102,18 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         if(BlueMask.WasPressedThisFrame())      { _MASKCONTROLLER.SetActiveMaskData(BlueData);}
         if(RedMask.WasPressedThisFrame())       { _MASKCONTROLLER.SetActiveMaskData(RedData);}
         if(YellowMask.WasPressedThisFrame())    { _MASKCONTROLLER.SetActiveMaskData(YellowData);}
-        if(Interact.WasPressedThisFrame())      { _MASKCONTROLLER.TryInteractWith();}
+        if(Interact.WasPressedThisFrame())     
+         { 
+            if(HelpPrompt.activeSelf)
+            {
+                HelpPrompt.SetActive(false);
+                OnScreenUI.SetActive(true);
+            }
+            else
+            {
+                _MASKCONTROLLER.TryInteractWith();
+            }
+        }
 
         // CAMERA CONTROLS (mapped to eyetracking)
         if(SceneManager.GetActiveScene().name != "Combat"){MapGazeDirection();}

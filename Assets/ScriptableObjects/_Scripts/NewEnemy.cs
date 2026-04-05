@@ -5,8 +5,8 @@ using UnityEngine;
 public class NewEnemy : ScriptableObject
 {
     [Header("Information")]
-    public String EnemyID;
-    public String DisplayName;
+    public string EnemyID;
+    public string DisplayName;
     public Sprite HudIcon;
 
     [Header("World Data")]

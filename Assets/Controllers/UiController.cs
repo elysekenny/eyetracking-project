@@ -55,11 +55,13 @@ public class UiController : MonoBehaviour
         {
             case ButtonFunc.START:
                // player prefs set first load in to true to trigger a popup
+                PlayerPrefs.SetString("LoadCase", "START");
                 SceneManager.LoadScene("Environment1");
                 break;
 
             case ButtonFunc.REPLAY:
                 // clear all the player refs and reset the scene in environment 1 with all the enemies
+                PlayerPrefs.SetString("LoadCase", "REPLAY");
                 SceneManager.LoadScene("Environment1");
                 break;
 

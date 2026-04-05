@@ -38,6 +38,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private Image SpecialActionButtonShadow;
 
     private NewEnemy CurrentEnemyData;
+    private String EnemyWorldID;
 
     // Active player data 🤑🤑🤑
     private int PlayerMaxHealth          = 200;
@@ -97,6 +98,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         EnemyLoaded          = GameObject.Find("EnemyData");
         EnemyLoadScript      = EnemyLoaded.GetComponent<LoadEnemy>();
         CurrentEnemyData     = EnemyLoadScript.EnemyToLoad;
+        EnemyWorldID         = EnemyLoadScript.EnemyWorldID;
 
         // Set and init the starting health attributes
         // (player health bar needs to be initialised at the right amount as its passed in each combat)
@@ -498,6 +500,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
             // load the environment scene with in world reference to be destroyed so the player cannot fight it again
             // TODO: destroy in world enemies
+            PlayerPrefs.SetString("LoadCase", "NONE");
+            PlayerPrefs.SetString("EnemyDefeated", EnemyWorldID);
             SceneManager.LoadScene("Environment1");
         }
         else

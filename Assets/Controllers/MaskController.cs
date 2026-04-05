@@ -108,10 +108,10 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
         {
             foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
             {
-                if(enemy.WorldReference.name == Object.name)
+                if(Object.name.Contains(enemy.EnemyID))
                 {
-                    // todo pass the enemy into the combat scene
                     EnemyDataLoader.EnemyToLoad = enemy;
+                    EnemyDataLoader.EnemyWorldID = Object.name;
                     SceneManager.LoadScene("Combat");
                 }
             }
@@ -126,7 +126,7 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
 
         foreach(NewEnemy enemy in CurrentMaskData.InteractableEnemies)
         {
-            if(enemy.WorldReference.name == Object.name)
+            if(Object.name.Contains(enemy.EnemyID))
             {
                 Object.GetComponent<SpriteRenderer>().color = enemy.SpriteColour;
                 InteractPrompt.gameObject.SetActive(true);
