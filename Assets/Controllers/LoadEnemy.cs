@@ -8,4 +8,5 @@ public class LoadEnemy : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
     public NewEnemy EnemyToLoad;
+    public string EnemyWorldID;
 }
