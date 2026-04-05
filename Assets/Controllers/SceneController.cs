@@ -22,6 +22,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
 
     public GameObject HelpPrompt;
     public GameObject OnScreenUI;
+    public GameObject ThreatLevel;
     public GameObject[] AllEnemies;
 
     private MaskController _MASKCONTROLLER;
@@ -62,6 +63,27 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         SunflowerText.text        = PlayerPrefs.GetString("SUNFLOWER_REMAINING", "2");
         SunflowerTextShadow.text  = PlayerPrefs.GetString("SUNFLOWER_REMAINING", "2");
 
+        if(PlayerPrefs.GetInt("TotalEnemies") <= 1)
+        {
+            // threat level = low
+            ThreatLevel.GetComponent<TextMeshProUGUI>().text = "LOW";
+            ThreatLevel.GetComponent<TextMeshProUGUI>().color = new Color(0.85f, 1, 0, 1);
+
+        }
+        else if (PlayerPrefs.GetInt("TotalEnemies") <= 3)
+        {
+            // threat level = medium
+            ThreatLevel.GetComponent<TextMeshProUGUI>().text = "MEDIUM";
+            ThreatLevel.GetComponent<TextMeshProUGUI>().color = new Color(1, 0.5f, 0, 1);
+
+        }
+        else
+        {
+            // threat level = high
+            ThreatLevel.GetComponent<TextMeshProUGUI>().text = "HIGH";
+            ThreatLevel.GetComponent<TextMeshProUGUI>().color = new Color(1, 0, 0, 1);
+        }
+
         // check the load condition (if there is one)
         if(PlayerPrefs.GetString("LoadCase") == "START")
         {
@@ -88,7 +110,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         }
 
         // check for win condition
-        if(PlayerPrefs.GetString("SUNFLOWER_REMAINING", "2") == "0" && PlayerPrefs.GetString("ROSE_REMAINING", "2") == "0" && PlayerPrefs.GetString("BLUEBELL_REMAINING", "1") == "0")
+        if(PlayerPrefs.GetInt("TotalEnemies") <= 0)
         {
             Debug.Log("Win condition!");
             PlayerPrefs.SetString("Gamestate", "Win");

@@ -665,7 +665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaskReference: {fileID: 112565980}
-  IN_DEBUG: 1
+  IN_DEBUG: 0
   _SceneManager: {fileID: 1573216475}
 --- !u!1 &170722376
 GameObject:

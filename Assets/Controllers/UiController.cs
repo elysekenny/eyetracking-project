@@ -12,10 +12,11 @@ public class UiController : MonoBehaviour
     public enum ButtonFunc {START, REPLAY, QUIT}
     public enum ScreenTypes {START, END}
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         // activate the correct screen based on Player prefs- either Win, Lose, Start
         string GetScreen = PlayerPrefs.GetString("Gamestate", "Start");
+        SetSaveValues();
 
         switch(GetScreen)
         {
@@ -43,10 +44,15 @@ public class UiController : MonoBehaviour
         EndScreen.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetSaveValues()
     {
-        
+        PlayerPrefs.SetInt("PlayerHealth", 300);
+        PlayerPrefs.SetString("SUNFLOWER_REMAINING", "2");
+        PlayerPrefs.SetString("ROSE_REMAINING", "2");
+        PlayerPrefs.GetString("BLUEBELL_REMAINING", "1");
+        PlayerPrefs.SetInt("TotalEnemies", 5);
+        PlayerPrefs.SetString("EnemyDefeated", "None");
+        PlayerPrefs.SetString("GameState", "Start");
     }
 
     public void OnButtonPressed(ButtonFunc function)
@@ -56,12 +62,6 @@ public class UiController : MonoBehaviour
             case ButtonFunc.START:
                // player prefs set first load in to true to trigger a popup
                 PlayerPrefs.SetString("LoadCase", "START");
-
-                // initialise all the player prefs
-                PlayerPrefs.SetInt("PlayerHealth", 300);
-                PlayerPrefs.SetString("SUNFLOWER_REMAINING", "2");
-                PlayerPrefs.SetString("ROSE_REMAINING", "2");
-                PlayerPrefs.GetString("BLUEBELL_REMAINING", "1");
                 SceneManager.LoadScene("Environment1");
                 break;
 

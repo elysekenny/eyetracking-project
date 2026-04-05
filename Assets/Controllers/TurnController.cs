@@ -106,6 +106,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         EnemyHealth      = CurrentEnemyData.Health;
 
         Debug.Log("Starting combat with " + CurrentEnemyData.DisplayName);
+        Debug.Log("Enemy: " + EnemyWorldID);
 
         SetupUIAttributes(); // set all the references to the ui attributes requried
         SetupInput();
@@ -502,6 +503,9 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             // TODO: destroy in world enemies
             PlayerPrefs.SetString("LoadCase", "NONE");
             PlayerPrefs.SetString("EnemyDefeated", EnemyWorldID);
+            
+            int PrevEnemies = PlayerPrefs.GetInt("TotalEnemies");
+            PlayerPrefs.SetInt("TotalEnemies", PrevEnemies - 1);
             SceneManager.LoadScene("Environment1");
         }
         else

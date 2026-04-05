@@ -31,8 +31,11 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
     // map the position of the mask to the position of the eye tracker
     void Update()
     {
-        if(IN_DEBUG){MapMaskPosition_Mouse();}    
-        else{MapMaskPosition_Eye();}
+        if (!HelpPrompt.activeSelf)
+        {
+            if(IN_DEBUG){MapMaskPosition_Mouse();}    
+            else{MapMaskPosition_Eye();}
+        }
     }
 
     private void MapMaskPosition_Eye()
@@ -111,8 +114,10 @@ public class MaskController : BeamEyeTrackerMonoBehaviour
             {
                 if(Object.name.Contains(enemy.EnemyID))
                 {
-                    EnemyDataLoader.EnemyToLoad = enemy;
-                    EnemyDataLoader.EnemyWorldID = Object.name;
+                    if(EnemyDataLoader.EnemyToLoad){Debug.Log(EnemyDataLoader.EnemyToLoad.name);}
+                
+                    EnemyDataLoader.EnemyToLoad      = enemy;
+                    EnemyDataLoader.EnemyWorldID     = Object.name;
                     SceneManager.LoadScene("Combat");
                 }
             }
