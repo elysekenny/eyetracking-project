@@ -46,12 +46,11 @@ public class UiController : MonoBehaviour
 
     private void SetSaveValues()
     {
-        PlayerPrefs.SetInt("PlayerHealth", 300);
+        PlayerPrefs.SetInt("PlayerHealth", 200);
         PlayerPrefs.SetString("SUNFLOWER_REMAINING", "2");
         PlayerPrefs.SetString("ROSE_REMAINING", "2");
         PlayerPrefs.SetString("BLUEBELL_REMAINING", "1");
         PlayerPrefs.SetInt("TotalEnemies", 5);
-        PlayerPrefs.SetString("EnemyDefeated", "None");
         PlayerPrefs.SetString("GameState", "Start");
         PlayerPrefs.SetString("CurrentEnemy", "None");
     }
