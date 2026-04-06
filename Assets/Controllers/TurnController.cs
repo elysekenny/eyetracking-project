@@ -152,8 +152,8 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             TimeRemaining -= Time.deltaTime;
             // TimerBar.transform.localScale = new Vector3(TimerBar.transform.localScale.x - Time.deltaTime / CurrentEnemyData.TurnDuration, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);T
             // timer bar move between 0 and 880 in a turn on the x axis
-            float TimerIncrement = CurrentEnemyData.TurnDuration / 880 * Time.deltaTime;
-            TimerBar.transform.position = new Vector3(TimerBar.transform.position.x + TimerIncrement, TimerBar.transform.position.y, TimerBar.transform.position.z);
+            float TimerIncrement              = 900 / (CurrentEnemyData.TurnDuration / Time.deltaTime);
+            TimerBar.transform.localPosition  = new Vector3(TimerBar.transform.localPosition.x + TimerIncrement, TimerBar.transform.localPosition.y, TimerBar.transform.localPosition.z);
 
             if(TimeRemaining <= 0f)
             {
@@ -239,7 +239,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         if(HealthRemainingPercent / 100 > HealthBar.transform.localScale.y){AnimDirection = 1;}
         else{AnimDirection = -1;}
 
-        HealthBar.transform.position = new Vector3(HealthBar.transform.position.x, -NewYPos, HealthBar.transform.position.z);
+        HealthBar.transform.localPosition = new Vector3(HealthBar.transform.localPosition.x, -NewYPos, HealthBar.transform.localPosition.z);
         // HealthBar.transform.localScale   = new Vector3( HealthBar.transform.localScale.x, HealthRemainingPercent / 100, 1);
 
         // HealthBarToTween     = HealthAnim;
@@ -423,7 +423,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         GameState                        = COMBAT_STATES.PROCESS_RESULTS;
         TimeRemaining                    = CurrentEnemyData.TurnDuration; // RESET THE TIMER FOR THE NEXT PLAYER TURN
         // TimerBar.transform.localScale    = new Vector3(TimerFilledVal, TimerBar.transform.localScale.y, TimerBar.transform.localScale.z);
-        TimerBar.transform.position      = new Vector3(0, TimerBar.transform.position.y, TimerBar.transform.position.z);
+        TimerBar.transform.localPosition = new Vector3(0, TimerBar.transform.localPosition.y, TimerBar.transform.localPosition.z);
 
         //Remove weakpoint and reset at end of turn
         if(SpawnedWeakpoint)
@@ -507,7 +507,6 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
             // load the environment scene with in world reference to be destroyed so the player cannot fight it again
             // TODO: destroy in world enemies
             PlayerPrefs.SetString("LoadCase", "NONE");
-            PlayerPrefs.SetString("EnemyDefeated", EnemyWorldID);
             
             int PrevEnemies = PlayerPrefs.GetInt("TotalEnemies");
             PlayerPrefs.SetInt("TotalEnemies", PrevEnemies - 1);
