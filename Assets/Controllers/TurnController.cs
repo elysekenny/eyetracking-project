@@ -118,10 +118,14 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         InitialiseCombatUI();
 
-        // INTRO CUTSCENE
-        GameState = COMBAT_STATES.START;
-        PlayerTurnStart();
+        // init the health bar visually to the stored health value
+        float HealthPercent = (float)((float)PlayerHealth / (float)PlayerMaxHealth * 100); 
+        UpdateHealthBar(PlayerHealthBar, PlayerHealthBarTween, HealthPercent);
 
+        // INTRO CUTSCENE
+        GameState        = COMBAT_STATES.START;
+        TimeRemaining    = CurrentEnemyData.TurnDuration; 
+        Invoke(nameof(PlayerTurnStart), 2.0f);
     }
 
     private void Update()
@@ -419,7 +423,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         else {EnemyAttacksPlayer(CurrentEnemyData.BaseDamage, false);}
 
         // Turn is over
-        Invoke(nameof(EndTurn), 2.0f);
+        Invoke(nameof(EndTurn), 1.0f);
     }
 
     private void EndTurn()
