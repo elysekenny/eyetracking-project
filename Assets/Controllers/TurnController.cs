@@ -85,10 +85,10 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
     private GameObject SpawnedWeakpoint;
 
     private GameObject HealthBarToTween;
-    private float TargetNewSize;
     private float TargetNewPos;
+    private float StartPos;
+    private bool WasHeal;
     private bool AnimateHealthBar    = false;
-    private int AnimDirection        = -1;
 
     private void SetupInput()
     {
@@ -163,7 +163,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         }
 
         // health bar visual tween
-        // if(AnimateHealthBar){AnimateHealth();}
+        if(AnimateHealthBar){AnimateHealth();}
     }
 
     private void InitialiseCombatUI()
@@ -236,25 +236,28 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
         float DamageTaken    = 1 - (HealthRemainingPercent / 100);
         float NewYPos        = 1100 * DamageTaken; // 50% health means multiply by 0.5
 
-        if(HealthRemainingPercent / 100 > HealthBar.transform.localScale.y){AnimDirection = 1;}
-        else{AnimDirection = -1;}
+        StartPos             = HealthBar.transform.localPosition.y;
+        HealthBarToTween     = HealthAnim;
+        TargetNewPos         = -NewYPos;
 
         HealthBar.transform.localPosition = new Vector3(HealthBar.transform.localPosition.x, -NewYPos, HealthBar.transform.localPosition.z);
-        // HealthBar.transform.localScale   = new Vector3( HealthBar.transform.localScale.x, HealthRemainingPercent / 100, 1);
-
-        // HealthBarToTween     = HealthAnim;
-        // TargetNewSize        = HealthRemainingPercent / 100;
-
-        // AnimateHealthBar     = true;
-        // Debug.Log($"New health percent = {HealthRemainingPercent}%");
+        AnimateHealthBar                  = true;
     }
 
     private void AnimateHealth()
     {
-        if(HealthBarToTween.transform.localScale.y <= TargetNewSize){AnimateHealthBar = false;} // should be true for healing health too
+        if(HealthBarToTween.transform.localPosition.y <= TargetNewPos && !WasHeal)
+        {
+            AnimateHealthBar = false;
+        } 
+        else if(HealthBarToTween.transform.localPosition.y >= TargetNewPos && WasHeal)
+        {
+            AnimateHealthBar = false;
+        }
+
         // apply to the healthbarToTween
-        HealthBarToTween.transform.localScale    = new Vector3(1,  HealthBarToTween.transform.localScale.y + (AnimDirection * Time.deltaTime), 1);
-        HealthBarToTween.transform.position      = new Vector3(HealthBarToTween.transform.position.x, HealthBarToTween.transform.position.y + (AnimDirection * Time.deltaTime), HealthBarToTween.transform.position.z);
+        float Increment = (TargetNewPos - StartPos) / (0.5f / Time.deltaTime);
+        HealthBarToTween.transform.position = new Vector3(HealthBarToTween.transform.position.x, HealthBarToTween.transform.position.y + Increment, HealthBarToTween.transform.position.z);
     }
 
     // WEAKPOINT STUFF
@@ -333,6 +336,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         EnemyHealth -= AttackValue;
         math.clamp(EnemyHealth, 0, CurrentEnemyData.Health); //visually health cannot go below 0 
+        WasHeal = false;
         float HealthPercent = (float)((float)EnemyHealth / (float)CurrentEnemyData.Health * 100); 
         UpdateHealthBar(EnemyHealthBar, EnemyHealthBarTween, HealthPercent);
 
@@ -353,6 +357,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
 
         PlayerHealth -= AttackValue;
         math.clamp(PlayerHealth, 0, PlayerMaxHealth); //visually health cannot go below 0 --> debug player max health is hard coded to be 100 but id like this to be an external variable elsewhere
+        WasHeal = false;
         float HealthPercent = (float)((float)PlayerHealth / (float)PlayerMaxHealth * 100); 
         UpdateHealthBar(PlayerHealthBar, PlayerHealthBarTween, HealthPercent);
 
@@ -400,6 +405,7 @@ public class TurnController :  BeamEyeTrackerMonoBehaviour
                 case ENEMY_SPECIAL_TYPES.HEAL:
                     EnemyHealth += (int)CurrentEnemyData.SpecialValue;
                     math.clamp(EnemyHealth, 0, CurrentEnemyData.Health); // they cannot have more health than they have health
+                    WasHeal = true;
                     float HealthPercent = (float)((float) EnemyHealth / (float) CurrentEnemyData.Health * 100);
                     UpdateHealthBar(EnemyHealthBar, EnemyHealthBarTween, HealthPercent); // readjust the health bar
 

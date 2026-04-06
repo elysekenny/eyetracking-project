@@ -102,7 +102,7 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         }
 
         // remove the defeated enemy from the world
-        string EnemyToRemove = PlayerPrefs.GetString("EnemyDefeated", "None");
+        string EnemyToRemove = PlayerPrefs.GetString("CurrentEnemy", "None");
         for(int i = 0; i < AllEnemies.Length; i++)
         {
             if(AllEnemies[i].name == EnemyToRemove)
