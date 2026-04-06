@@ -13,6 +13,10 @@ public class ButtonScript : MonoBehaviour
     public UiController.ButtonFunc Function;
     public UiController.ScreenTypes Screen;
 
+    [Header("Text")]
+    public GameObject TextStd;
+    public GameObject TextHover;
+
     [Header("Start Screen")]
 
     public GameObject BACKGROUND;
@@ -57,6 +61,8 @@ public class ButtonScript : MonoBehaviour
     {
         // eye tracking! haha eye tracking in the main menu why not lets keep this consistent
         CanSelect = true;
+        TextStd.SetActive(false);
+        TextHover.SetActive(true);
 
         switch(Screen)
         {
@@ -73,6 +79,8 @@ public class ButtonScript : MonoBehaviour
     void OnTriggerExit2D(Collider2D Collision)
     {
         CanSelect = false;
+        TextStd.SetActive(true);
+        TextHover.SetActive(false);
 
         switch(Screen)
         {
