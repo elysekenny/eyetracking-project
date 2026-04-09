@@ -24,7 +24,7 @@ MonoBehaviour:
   DamageVariance: 2
   SpecialName: Cure Wounds
   SpecialType: 3
-  SpecialValue: 20
+  SpecialValue: 15
   SpecialChance: 10
   CriticalChance: 10
   TurnDuration: 3
