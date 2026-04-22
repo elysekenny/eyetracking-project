@@ -36,7 +36,7 @@ public class UiController : MonoBehaviour
 
     private void MainMenu()
     {
-        GameOverScreen.SetActive(true);
+        StartScreen.SetActive(true);
     }
 
     private void CompleteScreen(GameObject EndScreen)
@@ -73,7 +73,7 @@ public class UiController : MonoBehaviour
 
             case ButtonFunc.QUIT:
                 Debug.Log("Quit game");
-                UnityEditor.EditorApplication.isPlaying = false;
+                UnityEditor.EditorApplication.ExitPlaymode();
                 Application.Quit();
                 break;
         }

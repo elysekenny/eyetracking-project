@@ -596,7 +596,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 7
 --- !u!331 &112565984
 SpriteMask:
   m_ObjectHideFlags: 0
