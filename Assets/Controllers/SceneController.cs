@@ -24,6 +24,8 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
     public GameObject ThreatLevel;
     public GameObject[] AllEnemies;
 
+    public bool UseEyeTracking;
+
     private MaskController _MASKCONTROLLER;
 
 
@@ -144,16 +146,20 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         }
 
         // CAMERA CONTROLS (mapped to eyetracking)
-        if(!HelpPrompt.activeSelf){MapGazeDirection();}
+        if(!HelpPrompt.activeSelf)
+        {
+            if(UseEyeTracking)
+            {
+                MapGazeDirectionEye();
+            }
+            else
+            {
+                MapGazeDirectionMouse();
+            }
+        }
     }
 
-    private void MapHeadMovement()
-    {
-        if(betInputDevice == null){return;}
-        //TODO: HeadPose integration would be nice
-    }
-
-    private void MapGazeDirection()
+    private void MapGazeDirectionEye()
     {
         if(betInputDevice == null){return;}
 
@@ -177,5 +183,31 @@ public class SceneController : BeamEyeTrackerMonoBehaviour
         Vector3 NewCameraPos =  new Vector3(Camera.main.transform.position.x + xMove, Camera.main.transform.position.y + yMove, Camera.main.transform.position.z);
         Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, NewCameraPos, 0.5f);
     }
+
+    private void MapGazeDirectionMouse()
+    {
+        Vector2 mouseValue   = Mouse.current.position.ReadValue();
+        mouseValue.x         = Mathf.Clamp01(mouseValue.x);
+        mouseValue.y         = Mathf.Clamp01(mouseValue.y);
+
+
+        Vector2 FullScreenPosition      = new Vector2(mouseValue.x *  Screen.width, mouseValue.y * Screen.height);
+        Vector2 CameraSpace             = Camera.main.WorldToViewportPoint(FullScreenPosition);
+
+        float xMove = 0;
+        float yMove = 0;
+
+        if(CameraSpace.x <= 0){xMove = -1;}
+        if(CameraSpace.x >= 1){xMove = 1;}
+        if(CameraSpace.y <= 0){yMove = -1;}
+        if(CameraSpace.y >= 1){yMove = 1;}
+
+        // Debug.Log("// X: " + CameraSpace.x + "// Y: " + CameraSpace.y);
+        // TODO: Smmoth camera movement as oppossed to setting the position (lerp)
+        Vector3 NewCameraPos =  new Vector3(Camera.main.transform.position.x + xMove, Camera.main.transform.position.y + yMove, Camera.main.transform.position.z);
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, NewCameraPos, 0.5f);
+    }
+
+    
 
 }

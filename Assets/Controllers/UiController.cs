@@ -73,7 +73,7 @@ public class UiController : MonoBehaviour
 
             case ButtonFunc.QUIT:
                 Debug.Log("Quit game");
-                UnityEditor.EditorApplication.ExitPlaymode();
+                // UnityEditor.EditorApplication.ExitPlaymode();
                 Application.Quit();
                 break;
         }
